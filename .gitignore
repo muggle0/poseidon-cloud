@@ -27,8 +27,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-/**/test
-/**/mvnw
-/**/mvnw.cmd
-/**/.mvn
-/target/
+*/targrt/
+*/test/
+*/mvnw
+*/*.cmd
+*/*.mvn
+*/*.log
+*/out/
+/logs/
+
+*/*.iml
+*/.settings/
+*/.idea/
