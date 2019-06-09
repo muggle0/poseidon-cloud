@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <druid.vrsion>1.1.12</druid.vrsion>
+
     </properties>
 
     <dependencies>

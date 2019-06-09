@@ -12,6 +12,7 @@
         <poseidon.cloud.version>0.0.1-SNAPSHOT</poseidon.cloud.version>
         <nacos.config.version>0.9.0.RELEASE</nacos.config.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <druid.vrsion>1.1.12</druid.vrsion>
     </properties>
 
     <modules>
