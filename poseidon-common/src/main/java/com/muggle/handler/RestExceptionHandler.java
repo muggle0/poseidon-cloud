@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @RestControllerAdvice
 @Slf4j
-public class RestExceptionHandlerController {
+public class RestExceptionHandler {
     @Autowired
     EmailTemplate emailTemplate;
     @Value("${admin.email}")
