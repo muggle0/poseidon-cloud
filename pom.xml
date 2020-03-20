@@ -45,6 +45,7 @@
         <module>poseidon-cloud-document</module>
         <module>poseidon-cloud-zuul</module>
         <module>poseidon-generator</module>
+        <module>tx-manager</module>
     </modules>
     <dependencies>
 

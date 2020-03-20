@@ -6,6 +6,18 @@
     <groupId>com.muggle</groupId>
     <artifactId>poseidon-cloud-starter</artifactId>
     <version>0.0.1.Alpha</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <name>poseidon-cloud-starter</name>
     <description>poseidon 项目starter 包</description>
 
