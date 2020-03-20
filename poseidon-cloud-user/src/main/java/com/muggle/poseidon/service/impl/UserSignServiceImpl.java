@@ -1,6 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.common.user.entity.UserSign;
+import com.muggle.poseidon.user.pojo.UserSign;
 import com.muggle.poseidon.mapper.UserSignMapper;
 import com.muggle.poseidon.service.IUserSignService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

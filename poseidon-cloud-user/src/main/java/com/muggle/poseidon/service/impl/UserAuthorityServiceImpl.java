@@ -1,6 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.common.user.entity.UserAuthority;
+import com.muggle.poseidon.user.pojo.UserAuthority;
 import com.muggle.poseidon.mapper.UserAuthorityMapper;
 import com.muggle.poseidon.service.IUserAuthorityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -1,6 +1,6 @@
 package com.muggle.poseidon.config.security.store.impl;
 
-import com.muggle.common.user.entity.UserInfo;
+import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.entity.SimpleUserDO;
 import com.muggle.poseidon.mapstruct.UserInfoMap;
 import com.muggle.poseidon.config.security.properties.UserSecurityProperties;

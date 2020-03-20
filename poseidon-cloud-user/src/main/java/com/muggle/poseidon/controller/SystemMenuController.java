@@ -1,13 +1,12 @@
 package com.muggle.poseidon.controller;
 
 
-import com.muggle.common.user.entity.SystemMenu;
+import com.muggle.poseidon.user.pojo.SystemMenu;
 import com.muggle.poseidon.base.BaseController;
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.entity.SystemMenuVO;
+import com.muggle.poseidon.user.entity.SystemMenuVO;
 import com.muggle.poseidon.service.ISystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

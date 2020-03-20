@@ -1,6 +1,6 @@
 package com.muggle.poseidon.mapper;
 
-import com.muggle.common.user.entity.UserSign;
+import com.muggle.poseidon.user.pojo.UserSign;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 

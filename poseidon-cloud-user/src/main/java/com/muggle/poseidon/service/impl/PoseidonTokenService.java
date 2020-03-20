@@ -1,9 +1,9 @@
 package com.muggle.poseidon.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.muggle.common.user.entity.UserAuthority;
-import com.muggle.common.user.entity.UserInfo;
-import com.muggle.common.user.entity.UserSign;
+import com.muggle.poseidon.user.pojo.UserAuthority;
+import com.muggle.poseidon.user.pojo.UserInfo;
+import com.muggle.poseidon.user.pojo.UserSign;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
 import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.mapper.UserAuthorityMapper;

@@ -1,6 +1,6 @@
 package com.muggle.poseidon.util;
 
-import com.muggle.common.user.entity.UserInfo;
+import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
 import com.muggle.poseidon.properties.SecurityMessageProperties;
 import org.springframework.security.core.Authentication;

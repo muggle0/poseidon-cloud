@@ -1,9 +1,8 @@
-package com.muggle.common.user.entity;
+package com.muggle.poseidon.user.pojo;
 
 import java.time.LocalDateTime;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,23 +18,27 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value="UserSign对象", description="")
-public class UserSign extends BaseBean {
+@ApiModel(value="UserRole对象", description="")
+public class UserRole extends BaseBean {
 
     private static final long serialVersionUID = 1L;
 
-    private String authType;
-
-    private LocalDateTime  gmtCreate;
-
-    private String credentials;
-
-    private boolean enable;
-
-    private String principal;
+    private LocalDateTime gmtCreate;
 
     private LocalDateTime gmtModified;
 
-    private Long userId;
+    private String roleCode;
+
+    private boolean enable;
+
+    private String roleName;
+
+    private Integer sort;
+
+    private String createName;
+
+    private Long createId;
+
+    private String scope;
 
 }

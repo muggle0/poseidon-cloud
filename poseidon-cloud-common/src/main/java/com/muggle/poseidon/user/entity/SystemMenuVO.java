@@ -1,6 +1,6 @@
-package com.muggle.poseidon.entity;
+package com.muggle.poseidon.user.entity;
 
-import com.muggle.common.user.entity.SystemMenu;
+import com.muggle.poseidon.user.pojo.SystemMenu;
 import lombok.Data;
 
 /**

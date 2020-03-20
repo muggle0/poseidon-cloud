@@ -1,10 +1,9 @@
 package com.muggle.poseidon.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.codingapi.txlcn.tc.annotation.DTXPropagation;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
-import com.muggle.common.user.entity.UserInfo;
-import com.muggle.common.user.entity.UserSign;
+import com.muggle.poseidon.user.pojo.UserInfo;
+import com.muggle.poseidon.user.pojo.UserSign;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
 import com.muggle.poseidon.feign.DocumentSeataFeign;
 import com.muggle.poseidon.mapper.UserAuthorityMapper;

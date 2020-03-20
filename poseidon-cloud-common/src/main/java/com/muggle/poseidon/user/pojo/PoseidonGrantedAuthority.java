@@ -1,4 +1,4 @@
-package com.muggle.common.user.entity;
+package com.muggle.poseidon.user.pojo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

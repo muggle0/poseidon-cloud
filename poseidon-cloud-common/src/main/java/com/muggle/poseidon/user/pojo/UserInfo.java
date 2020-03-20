@@ -1,4 +1,4 @@
-package com.muggle.common.user.entity;
+package com.muggle.poseidon.user.pojo;
 
 import java.time.LocalDateTime;
 import java.util.Collection;

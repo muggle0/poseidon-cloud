@@ -3,7 +3,7 @@
 <mapper namespace="com.muggle.poseidon.mapper.SystemMenuMapper">
 
 
-    <resultMap id="baseResutMap" type="com.muggle.common.user.entity.SystemMenu">
+    <resultMap id="baseResutMap" type="com.muggle.poseidon.user.pojo.SystemMenu">
 
         <result column="menu_name" property="menuName"/>
         <result column="muen_desc" property="muenDesc"/>

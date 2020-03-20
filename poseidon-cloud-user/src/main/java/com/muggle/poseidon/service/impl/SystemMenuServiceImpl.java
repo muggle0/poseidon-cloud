@@ -1,8 +1,8 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.common.user.entity.SystemMenu;
-import com.muggle.common.user.entity.UserInfo;
-import com.muggle.poseidon.entity.SystemMenuVO;
+import com.muggle.poseidon.user.pojo.SystemMenu;
+import com.muggle.poseidon.user.pojo.UserInfo;
+import com.muggle.poseidon.user.entity.SystemMenuVO;
 import com.muggle.poseidon.mapper.SystemMenuMapper;
 import com.muggle.poseidon.service.ISystemMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

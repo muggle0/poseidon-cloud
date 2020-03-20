@@ -1,6 +1,6 @@
 package com.muggle.poseidon.helper.impl;
 
-import com.muggle.common.user.entity.UserSign;
+import com.muggle.poseidon.user.pojo.UserSign;
 import com.muggle.poseidon.helper.LoginHelper;
 import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
 import com.muggle.poseidon.service.MessageService;

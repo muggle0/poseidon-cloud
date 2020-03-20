@@ -1,4 +1,4 @@
-package com.muggle.common.user.entity;
+package com.muggle.poseidon.user.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.muggle.poseidon.base.BaseBean;
@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 import java.util.Set;
 

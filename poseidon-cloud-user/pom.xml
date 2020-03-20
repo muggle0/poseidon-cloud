@@ -31,6 +31,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.muggle</groupId>
+            <artifactId>poseidon-cloud-common</artifactId>
+        </dependency>
         <!--seata-->
        <!-- <dependency>
             <groupId>com.alibaba.cloud</groupId>

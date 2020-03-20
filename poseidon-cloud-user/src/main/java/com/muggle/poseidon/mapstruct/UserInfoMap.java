@@ -1,7 +1,7 @@
 package com.muggle.poseidon.mapstruct;
 
-import com.muggle.common.user.entity.UserAuthority;
-import com.muggle.common.user.entity.UserInfo;
+import com.muggle.poseidon.user.pojo.UserAuthority;
+import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.entity.SimpleUserDO;
 import com.muggle.poseidon.entity.UserAuthorityDO;
 import org.mapstruct.Mapper;

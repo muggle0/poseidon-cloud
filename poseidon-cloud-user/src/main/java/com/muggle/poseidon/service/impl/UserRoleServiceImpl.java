@@ -1,6 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.common.user.entity.UserRole;
+import com.muggle.poseidon.user.pojo.UserRole;
 import com.muggle.poseidon.mapper.UserRoleMapper;
 import com.muggle.poseidon.service.IUserRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

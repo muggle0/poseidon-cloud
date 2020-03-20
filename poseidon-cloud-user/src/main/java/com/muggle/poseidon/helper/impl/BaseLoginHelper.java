@@ -1,7 +1,6 @@
 package com.muggle.poseidon.helper.impl;
 
-import com.muggle.common.user.entity.UserAuthority;
-import com.muggle.common.user.entity.UserInfo;
+import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.helper.LoginHelper;
 import com.muggle.poseidon.mapstruct.UserInfoMap;
@@ -13,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

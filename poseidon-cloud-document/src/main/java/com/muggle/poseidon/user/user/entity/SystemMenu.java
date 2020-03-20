@@ -1,4 +1,4 @@
-package com.muggle.common.user.entity;
+package com.muggle.poseidon.user.user.entity;
 
 import java.time.LocalDateTime;
 import com.muggle.poseidon.base.BaseBean;

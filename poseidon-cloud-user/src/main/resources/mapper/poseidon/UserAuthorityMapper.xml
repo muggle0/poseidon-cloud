@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.muggle.poseidon.mapper.UserAuthorityMapper">
 
-    <select id="getAuthoritysByUserId" resultType="com.muggle.common.user.entity.UserAuthority">
+    <select id="getAuthoritysByUserId" resultType="com.muggle.poseidon.user.pojo.UserAuthority">
 
 
     </select>

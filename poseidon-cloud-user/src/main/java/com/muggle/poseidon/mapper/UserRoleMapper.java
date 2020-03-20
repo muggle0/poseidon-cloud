@@ -1,6 +1,6 @@
 package com.muggle.poseidon.mapper;
 
-import com.muggle.common.user.entity.UserRole;
+import com.muggle.poseidon.user.pojo.UserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

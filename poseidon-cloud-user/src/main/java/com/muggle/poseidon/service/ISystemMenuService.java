@@ -1,8 +1,8 @@
 package com.muggle.poseidon.service;
 
-import com.muggle.common.user.entity.SystemMenu;
+import com.muggle.poseidon.user.pojo.SystemMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.muggle.poseidon.entity.SystemMenuVO;
+import com.muggle.poseidon.user.entity.SystemMenuVO;
 
 import java.util.List;
 

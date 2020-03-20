@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.muggle.poseidon.mapper.UserInfoMapper">
 
-    <resultMap id="baseResutMap" type="com.muggle.common.user.entity.UserInfo">
+    <resultMap id="baseResutMap" type="com.muggle.poseidon.user.pojo.UserInfo">
         <id column="id" property="id"/>
         <result column="gmt_create" property="gmtCreate" typeHandler="com.muggle.poseidon.handler.MybatisDataHandler"/>
         <result column="gmt_modified" property="gmtModified"
