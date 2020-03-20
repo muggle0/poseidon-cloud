@@ -36,6 +36,14 @@
 
     <modules>
         <module>poseidon-cloud-admin</module>
+        <module>poseidon-cloud-common</module>
+        <module>poseidon-cloud-starter</module>
+        <module>poseidon-cloud-message</module>
+        <module>poseidon-cloud-core</module>
+        <module>poseidon-cloud-user</module>
+        <module>poseidon-cloud-document</module>
+        <module>poseidon-cloud-zuul</module>
+        <module>poseidon-generator</module>
     </modules>
     <dependencies>
 

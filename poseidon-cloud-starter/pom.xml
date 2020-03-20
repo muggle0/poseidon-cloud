@@ -111,7 +111,7 @@
     </dependencyManagement>
 
 
-    <build>
+    <!--<build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
             <plugin>
@@ -123,5 +123,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>

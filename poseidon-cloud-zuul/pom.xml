@@ -15,9 +15,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <sentinel.version>1.6.1</sentinel.version>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <start-class>com.muggle.poseidon.PoseidonZuulApplication</start-class>
     </properties>
 
