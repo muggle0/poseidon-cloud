@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.muggle.poseidon.mapper.UserInfoMapper">
+
+    <resultMap id="baseResutMap" type="com.muggle.common.user.entity.UserInfo">
+        <id column="id" property="id"/>
+        <result column="gmt_create" property="gmtCreate" typeHandler="com.muggle.poseidon.handler.MybatisDataHandler"/>
+        <result column="gmt_modified" property="gmtModified"
+                typeHandler="com.muggle.poseidon.handler.MybatisDataHandler"/>
+        <result column="credentials_non_expired" property="credentialsNonExpired"/>
+        <result column="account_non_expired" property="accountNonExpired"/>
+        <result column="account_non_locked" property="accountNonLocked"/>
+        <result column="password" property="password"/>
+        <result column="nickname" property="nickname"/>
+        <result column="birthday" property="birthday" typeHandler="com.muggle.poseidon.handler.MybatisDataHandler"/>
+        <result column="email" property="email"/>
+        <result column="enabled" property="enabled"/>
+        <result column="gender" property="gender"/>
+        <result column="code" property="code"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="phone" property="phone"/>
+        <result column="username" property="username"/>
+        <result column="context" property="context"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+
+    <select id="findByUsername" resultMap="baseResutMap">
+        SELECT
+        id,gmt_create,gmt_modified,gmt_modified,credentials_non_expired,account_non_expired,account_non_locked,password,
+        nickname,birthday,email,enabled,gender,code,img_url,phone,username,context,sort
+        from user_info
+        <where>
+            dr=0 and username=#{username}
+        </where>
+    </select>
+    <select id="getByUserSign" resultMap="baseResutMap">
+        select
+        id,gmt_create,gmt_modified,gmt_modified,credentials_non_expired,account_non_expired,account_non_locked,password,
+        nickname,birthday,email,enabled,gender,code,img_url,phone,username,context,sort,
+        from user_info inner join user_sign on user_sign.user_id=user_info.id
+        <if test="bean.principal !=null ">
+            and user_sign.principal=#{bean.principal}
+        </if>
+        <if test="bean.authType!=null">
+            and user_sign.auth_type={bean.authType}
+        </if>
+        <if test="bean.credentials !=null">
+            and user_sign.auth_type={bean.authType}
+        </if>
+
+        and user_sign.enable=#{bean.enable}
+    </select>
+    <sql id="S"></sql>
+    <select id="findAuthByUsername" resultType="com.muggle.poseidon.entity.UserAuthorityDO">
+
+        SELECT ua.id,url,ua.description,ua.gmt_create AS gmtCreate,ua.enable ,ua.request_type AS
+        requestType,application,ua.class_name AS className,
+        ua.method_name AS methodName,ua.parent_id AS parentId
+        FROM user_info ui LEFT JOIN user_role_relation urr ON urr.`user_id`=ui.`id`
+        LEFT JOIN role_authority_relation rar ON rar.`role_id`=urr.`role_id` LEFT JOIN user_authority ua
+        ON ua.`id`=rar.`authority_id` WHERE ui.`username`=#{username};
+    </select>
+</mapper>
