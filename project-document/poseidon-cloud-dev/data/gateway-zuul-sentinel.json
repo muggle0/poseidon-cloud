@@ -1,0 +1,28 @@
+[
+  {
+    "id": 12,
+    "app": "gateway-zuul",
+    "ip": "10.20.1.49",
+    "port": 8100,
+    "limitApp": "default",
+    "resource": "user-center",
+    "grade": 1,
+    "count": 1,
+    "strategy": 0,
+    "refResource": null,
+    "controlBehavior": 0,
+    "warmUpPeriodSec": 10,
+    "maxQueueingTimeMs": 500,
+    "clusterMode": false,
+    "clusterConfig": {
+      "flowId": null,
+      "thresholdType": 0,
+      "fallbackToLocalWhenFail": true,
+      "strategy": 0,
+      "sampleCount": 10,
+      "windowIntervalMs": 1000
+    },
+    "gmtCreate": null,
+    "gmtModified": null
+  }
+]
