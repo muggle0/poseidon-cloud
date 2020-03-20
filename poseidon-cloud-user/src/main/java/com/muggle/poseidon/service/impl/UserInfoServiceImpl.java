@@ -66,7 +66,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Transactional
     public void insert() {
         UserSign userSign = new UserSign();
-        userSign.setAuthType("seata").setCredentials("seata");
+        userSign.setAuthType("test").setCredentials("lcn-test");
         signMapper.insert(userSign);
         seataFeign.findAll();
         throw new SimplePoseidonException("测试");
