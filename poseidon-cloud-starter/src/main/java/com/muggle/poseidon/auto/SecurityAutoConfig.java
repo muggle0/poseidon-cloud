@@ -1,7 +1,6 @@
 package com.muggle.poseidon.auto;
 
 import com.muggle.poseidon.adapter.PoseidonAuthConfigAdapter;
-import com.muggle.poseidon.aop.DevUserInfoInterceptor;
 import com.muggle.poseidon.aop.LogAspect;
 import com.muggle.poseidon.base.PoseidonLocker;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +30,9 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program: poseidon-cloud-starter
