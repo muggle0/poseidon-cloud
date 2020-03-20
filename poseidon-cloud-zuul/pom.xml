@@ -6,7 +6,7 @@
         <groupId>com.muggle</groupId>
         <artifactId>poseidon-cloud-parent</artifactId>
         <version>0.0.1.Alpha</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.muggle</groupId>
     <artifactId>poseidon-cloud-zuul</artifactId>

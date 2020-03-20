@@ -5,6 +5,7 @@
         <groupId>com.muggle</groupId>
         <artifactId>poseidon-cloud-parent</artifactId>
         <version>0.0.1.Alpha</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.muggle</groupId>
