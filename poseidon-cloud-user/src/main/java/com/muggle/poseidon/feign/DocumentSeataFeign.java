@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("document-center")
 public interface DocumentSeataFeign {
 
-    @GetMapping("/document/test/find")
+    @GetMapping("/document/test/insert")
     ResultBean findAll();
 }
