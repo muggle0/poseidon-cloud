@@ -18,12 +18,14 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value="Test对象", description="")
-public class Test extends BaseBean {
+@ApiModel(value="测试", description="")
+public class DocTrasctionTest extends BaseBean {
 
     private static final long serialVersionUID = 1L;
 
     private String message;
+
+    private Integer number;
 
     private Long id;
 

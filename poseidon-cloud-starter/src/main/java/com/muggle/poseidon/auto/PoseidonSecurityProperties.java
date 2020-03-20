@@ -10,7 +10,7 @@ import java.util.List;
  * @author: muggle
  * @create: 2019-11-04
  **/
-
+@SuppressWarnings("all")
 @ConfigurationProperties(prefix="poseidon")
 public class PoseidonSecurityProperties {
     /** 凭证，用于校验token 要和鉴权平台的令牌一致**/

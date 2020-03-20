@@ -21,7 +21,7 @@ import static com.muggle.poseidon.base.ResultBean.success;
 
 @RestController
 @Api(value = "类注释")
-@RequestMapping("/meg")
+@RequestMapping("/test")
 public class TestController {
     @Autowired
     RedisTemplate<String,String> redisTemplate;
@@ -31,15 +31,15 @@ public class TestController {
 
 
 
-    @GetMapping("/sew")
+    @GetMapping("/string")
     @ApiOperation(value = "方法注释")
     public ResultBean test(){
         return success();
     }
 
-    @GetMapping("/test")
-    public ResultBean seata(){
-        userInfoService.test1();
+    @GetMapping("/insert")
+    public ResultBean insert(){
+        userInfoService.insert();
 
         return success();
     }

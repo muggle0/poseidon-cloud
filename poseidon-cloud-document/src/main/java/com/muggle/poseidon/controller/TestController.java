@@ -25,8 +25,8 @@ import static com.muggle.poseidon.base.ResultBean.success;
 public class TestController extends BaseController {
     @Autowired
     TestService service;
-    @GetMapping("/find")
-    public ResultBean findAll(){
+    @GetMapping("/insert")
+    public ResultBean insertData(){
         service.set();
         return success();
     }

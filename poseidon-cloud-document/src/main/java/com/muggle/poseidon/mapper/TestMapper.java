@@ -1,7 +1,7 @@
 package com.muggle.poseidon.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.muggle.poseidon.entity.Test;
+import com.muggle.poseidon.entity.DocTrasctionTest;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @since 2020-03-18
  */
 @Repository
-public interface TestMapper extends BaseMapper<Test> {
+public interface TestMapper extends BaseMapper<DocTrasctionTest> {
 
 }

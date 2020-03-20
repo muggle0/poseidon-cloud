@@ -64,7 +64,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Override
     @LcnTransaction
     @Transactional
-    public void test1() {
+    public void insert() {
         UserSign userSign = new UserSign();
         userSign.setAuthType("seata").setCredentials("seata");
         signMapper.insert(userSign);
