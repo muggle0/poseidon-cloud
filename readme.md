@@ -1,3 +1,5 @@
+
+![avatar](https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/poseidon.jpg?raw=true)
 # poseidon-cloud: 分布式平台快速开发框架
 
  :penguin: 
