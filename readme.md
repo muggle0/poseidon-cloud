@@ -1,4 +1,4 @@
-![poseidon](https://raw.githubusercontent.com/muggle0/poseidon-cloud/master/project-document/png/poseidon-3.jpg) 
+
 #  poseidon-cloud: 分布式平台快速开发框架
 
  :penguin: 
@@ -29,6 +29,8 @@
 链接：https://pan.baidu.com/s/1ufn-pZxOYvq0wdmNuxquzQ 
 提取码：65wj 
 ```
+
+在这里告诉大家一个小技巧，由于
 
 ## sentinel 安装
 
