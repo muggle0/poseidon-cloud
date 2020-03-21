@@ -1,4 +1,5 @@
-![poseidon](https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/poseidon-2.jpg?raw=true)
+<img src="https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/poseidon-2.jpg?raw=true 100x300" alt="poseidon" style="zoom:50%;" /> 
+
 #  poseidon-cloud: 分布式平台快速开发框架
 
  :penguin: 
