@@ -1,4 +1,4 @@
-![poseidon](https://raw.githubusercontent.com/muggle0/poseidon-cloud/master/project-document/png/factory.jpg) 
+![poseidon](https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/factory.jpg?raw=true) 
 #  poseidon-cloud: 分布式平台快速开发框架
 
  :penguin: 
