@@ -1,8 +1,11 @@
-![poseidon](https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/factory.jpg?raw=true) 
+
+
 #  poseidon-cloud: 分布式平台快速开发框架
 
+![poseidon](https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/factory.jpg?raw=true) 
+
  :penguin: 
-![AppVeyor](https://img.shields.io/badge/build-poseidon-orange.svg)
+![AppVeyor](https://img.shields.io/badge/cloud-poseidon-orange.svg) 嘻嘻嘻嘻嘻嘻嘻嘻寻
 
 # 项目说明
 集成 spring-cloud 环境，方便分布式项目的开发

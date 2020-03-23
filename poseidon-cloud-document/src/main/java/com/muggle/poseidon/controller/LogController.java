@@ -54,4 +54,8 @@ public class LogController {
         return success();
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return ">>>>";
+    }
 }

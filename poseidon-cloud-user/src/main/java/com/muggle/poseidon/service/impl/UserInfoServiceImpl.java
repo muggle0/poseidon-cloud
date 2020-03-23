@@ -69,7 +69,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userSign.setAuthType("test").setCredentials("lcn-test");
         signMapper.insert(userSign);
         seataFeign.findAll();
-        throw new SimplePoseidonException("测试");
     }
 
 }

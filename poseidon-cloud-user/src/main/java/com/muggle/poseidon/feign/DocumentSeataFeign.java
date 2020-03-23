@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @create: 2020-03-18 15:40
  */
 @FeignClient("document-center")
+@RequestMapping("/document/test")
 public interface DocumentSeataFeign {
 
-    @GetMapping("/document/test/insert")
+    @GetMapping("/insert")
     ResultBean findAll();
 }
