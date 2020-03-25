@@ -58,8 +58,7 @@ public class SimpleRedisSecurityStore implements SecurityStore {
     @Override
     public String saveUser(UserDetails userDetails, long expirationTime, String key) {
         HashMap<String, Object> map = new HashMap<>();
-        String username = userDetails.getUsername();
-        map.put("key",username);
+        map.put("key",key);
         SimpleUserDO simpleUserDO = userInfoMap.userInfoMaping((UserInfo) userDetails);
         ArrayList<String> strings = new ArrayList<>();
         String token = JwtTokenUtils.createToken(map, properties.getCredential(), properties.getExperTime());

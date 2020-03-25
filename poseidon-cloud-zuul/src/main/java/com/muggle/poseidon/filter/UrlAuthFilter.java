@@ -7,6 +7,7 @@ import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -24,7 +25,11 @@ import java.util.List;
  **/
 
 @Component
+@RefreshScope
 public class UrlAuthFilter extends ZuulFilter {
+
+    @Value("${poseidon.root.token}")
+    private String rootToken;
 
     /** logger */
     private static final Logger log = LoggerFactory.getLogger(UrlAuthFilter.class);
@@ -85,6 +90,10 @@ public class UrlAuthFilter extends ZuulFilter {
         if (match){
             String token = request.getHeader("token");
             if (token!=null){
+                if (rootToken.equals(token)) {
+                    ctx.setSendZuulResponse(false);
+                    ctx.setResponseBody("{\"result\":\"username is not correct!\"}");
+                }
                 try {
                     // 查看token是否可解析并带有版本号
                     String random = JwtTokenUtils.getRandom(token, credential);

@@ -17,6 +17,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserInfoUtils {
 
+    private UserInfoUtils(){
+        throw new SimplePoseidonException("禁止实例化");
+    }
+
     public static SimpleUserDO getUserInfo() throws BasePoseidonCheckException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication==null||authentication.getDetails()==null){

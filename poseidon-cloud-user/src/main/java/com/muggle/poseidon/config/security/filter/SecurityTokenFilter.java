@@ -121,5 +121,8 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(SecurityMessageProperties.BAD_TOKEN,null,null);
         authenticationToken.setDetails(message);
         return authenticationToken;
+
     }
+
+
 }
