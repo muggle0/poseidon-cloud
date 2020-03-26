@@ -1,0 +1,5 @@
+### user 模块登录
+POST {{host}}/api/change_sale/detail/list
+Accept:*/*
+Content-Type:application/json;charset=UTF-8
+Cookie:JSESSIONID=26E2E07CC5E91FE024FB9CCD74C5AAF2; lsmyToken="HDqMDMzMzVrUXdi29FBD74C@MTU4NTA5NjY1NQ=="

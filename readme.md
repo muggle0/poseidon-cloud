@@ -1,27 +1,29 @@
 
-
 #  poseidon-cloud: 分布式平台快速开发框架
 
 ![poseidon](https://github.com/muggle0/poseidon-cloud/blob/master/project-document/png/factory.jpg?raw=true) 
 
  :penguin: 
-![AppVeyor](https://img.shields.io/badge/cloud-poseidon-orange.svg) 嘻嘻嘻嘻嘻嘻嘻嘻寻
+ 
+![AppVeyor](https://img.shields.io/badge/cloud-poseidon-orange.svg)
+
+![AppVeyor](https://img.shields.io/badge/jdk8-support-orange.svg)
 
 # 项目说明
 集成 spring-cloud 环境，方便分布式项目的开发
 
 ## 使用的组件
-- sentinel
-- zipkin
-- zuul
-- logstash
-- nacos
-- rabbitmq
-- spring-boot-admin
-- spring-security
-- oauth2（开发中）
+- [sentinel](https://github.com/alibaba/spring-cloud-alibaba/wiki/Sentinel "点我") (阿里开源服务限流框架)
+- [zipkin](https://github.com/openzipkin/zipkin/wiki "点我")(开源链路追踪框架)
+- [zuul](https://github.com/Netflix/zuul/wiki "点我")(开源微服务网关)
+- [logstash](https://www.elastic.co/cn/logstash "点我")(elk中的数据收集管道)
+- [nacos](https://nacos.io/zh-cn/docs/what-is-nacos.html "点我")(注册中心)
+- [rabbitmq]( https://muggle.javaboy.org/2019/08/30/rabbitmq/ "点我")
+- [spring-boot-admin](https://codecentric.github.io/spring-boot-admin/current/ "应用监控")
+- [spring-security](https://muggle.javaboy.org/2019/04/20/springSecurity2/ "权限控制框架")
+- [oauth2](https://muggle.javaboy.org/2019/04/12/security-oauth2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/ "点我")(权限控制框架，开发中)
 - docker
-- txLCN
+- [txLCN](http://www.txlcn.org/zh-cn/docs/preface.html "点我")(分布式事务框架)
 
 ## 环境搭建
 
