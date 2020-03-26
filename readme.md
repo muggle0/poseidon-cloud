@@ -25,8 +25,6 @@
 - docker
 - [txLCN](http://www.txlcn.org/zh-cn/docs/preface.html "点我")(分布式事务框架)
 
-## 环境搭建
-
 # 快速开始
 框架使用远程的注册中心和数据库，pull下来就可以运行体验。配置完整的运行环境还需要下载中间件，由于在github 上下载东西很慢，我把相关中间件上传到了百度云，down下来后按照教程安装
 
@@ -34,15 +32,63 @@
 链接：https://pan.baidu.com/s/1ufn-pZxOYvq0wdmNuxquzQ 
 提取码：65wj 
 ```
-
-## sentinel 安装
-
-
+## sentinel-dashboard 安装
+框架集成了`sentinel`来做限流和熔断，`sentinel-dashboard`是sentinel控制台，你可以在这个控制台里面看到各个资源的访问情况，配置熔断规则等。
+框架的配置文件制定控制台的`ip:prot` :
+```properties
+spring.cloud.sentinel.transport.dashboard=127.0.0.1:8000
+```
+`sentinel-dashboard` 是一个springboot应用，我们用如下方式启动
+```properties
+ java -jar sentinel-dashboard-1.6.0.jar --server.port=8000
+```
+启动之后打开浏览器，访问 `http://localhost:8000` 进入登录页，用户名密码均为 `sentinel`。
+至此，sentinel安装成功，sentinel使用的相关教程我会在我的 [博客](https://muggle.javaboy.org/) 或者 [公众号](https://muggle.javaboy.org/2019/03/20/home/) 上发布
 
 ##  logstash 安装
+`logstash` 作为日志的输出管道，将日志处理和框架解耦开来；它能将应用日志输出到 `mq`, `db` ,`file` 等地方
+
+```config
+# Sample Logstash configuration for creating a simple
+# Beats -> Logstash -> Elasticsearch pipeline.
+
+input {
+  tcp {
+	host => "127.0.0.1"
+    port => 8003
+	codec => json_lines
+  }
+}
 
 
+output {
+  #elasticsearch {
+   # hosts => ["http://localhost:9200"]
+    #index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+    #user => "elastic"
+    #password => "changeme"
+  #}
+	
+   stdout {
+      # codec => json_lines
+	   codec => rubydebug
+  }
+  
+  mongodb {
+	# 过滤掉 @timestamp 会报错
+    uri => "mongodb://127.0.0.1:27017"
+    database => "poseidon_cloud"
+    collection => "app_log"
+  }
+}
 
+filter {
+    mutate {
+		remove_field => ["@version", "host","port"]
+    
+    }
+}
+```
 # 框架的使用（集成业务）
 
 # 教程资料
