@@ -71,7 +71,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
 
         String[] paths = new String[SecurityStore.ACCESS_PATHS.size()];
         SecurityStore.ACCESS_PATHS.toArray(paths);
-        http.authorizeRequests().antMatchers(paths).permitAll()
+        http.authorizeRequests().antMatchers(paths).permitAll().antMatchers("/api/**","/poseidon/**").permitAll()
                 .antMatchers("/admin/oauth/**").hasRole("admin")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
                 .and().csrf().disable();

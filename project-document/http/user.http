@@ -8,6 +8,6 @@ Content-Type:application/json;charset=UTF-8
 GET {{host}}/poseidon/user-info/verification_code?username=admin
 
 ### 测试
-GET {{host}}/test/string
+GET {{host}}/api/test/string
 
 ###

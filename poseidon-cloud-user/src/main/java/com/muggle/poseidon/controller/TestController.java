@@ -31,7 +31,7 @@ import static com.muggle.poseidon.base.ResultBean.success;
 
 @RestController
 @Api(value = "类注释")
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestController {
 
     @Autowired
