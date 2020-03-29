@@ -13,6 +13,6 @@ public interface SecurityMessageProperties {
     String ISSUER ="POSEIDON-CLOUD";
     String RANDOM = "RANDOM";
     String LOGIN_TYPE="loginType";
-    String VERIFICATION="verification";
-    String USER_NAME="username";
+    String VERIFICATION="auth:verification:";
+    String USER_NAME="auth:username:";
 }

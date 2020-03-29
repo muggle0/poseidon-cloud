@@ -1,11 +1,11 @@
 package com.muggle.poseidon.config.security.store.impl;
 
-import com.muggle.poseidon.user.pojo.UserInfo;
-import com.muggle.poseidon.entity.SimpleUserDO;
-import com.muggle.poseidon.mapstruct.UserInfoMap;
 import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
 import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
+import com.muggle.poseidon.entity.SimpleUserDO;
+import com.muggle.poseidon.mapstruct.UserInfoMap;
 import com.muggle.poseidon.store.SecurityStore;
+import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.util.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.internal.Function;
@@ -15,7 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**

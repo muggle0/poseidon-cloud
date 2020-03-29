@@ -1,7 +1,10 @@
 package com.muggle.poseidon.config.security.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
 import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
+import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -14,6 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,13 +47,22 @@ public class SecurityLoginFilter extends UsernamePasswordAuthenticationFilter {
         if (!request.getMethod().equalsIgnoreCase("POST")) {
             throw new AuthenticationServiceException("请求非法 ");
         }
-
-
-        String username = this.obtainUsername(request);
-        String password = this.obtainPassword(request);
-        String loginType = request.getParameter(SecurityMessageProperties.LOGIN_TYPE);
-        String verification = request.getParameter(SecurityMessageProperties.VERIFICATION);
-
+        StringBuilder jsonb = new StringBuilder();
+        try {
+            BufferedReader br = request.getReader();
+            String content=null;
+            while(( content = br.readLine()) != null){
+                jsonb.append(content);
+            }
+        } catch (IOException e) {
+            logger.error(e);
+            throw new BadCredentialsException("获取请求参数时发生一个异常");
+        }
+        LoginMeesageDO loginMeesageDO = JSONObject.parseObject(jsonb.toString(), LoginMeesageDO.class);
+        String username = loginMeesageDO.getUsername();
+        String password = loginMeesageDO.getPassword();
+        String loginType = loginMeesageDO.getLoginType();
+        String verification = loginMeesageDO.getVerification();
         if (username == null||password==null||loginType==null||verification==null) {
             throw new AuthenticationServiceException("缺少参数，请填写用户名，密码，验证码等信息");
         }
@@ -89,5 +103,16 @@ public class SecurityLoginFilter extends UsernamePasswordAuthenticationFilter {
         if (verification==null){
             throw new BadCredentialsException("请输入验证码");
         }
+        TokenService tokenService=null;
+    }
+
+    public static void main(String[] args) {
+        LoginMeesageDO loginMeesageDO = new LoginMeesageDO();
+        loginMeesageDO.setLoginType("base");
+        loginMeesageDO.setUsername("admin");
+        loginMeesageDO.setPassword("admin");
+        loginMeesageDO.setVerification("test");
+        String test= JSON.toJSONString(loginMeesageDO);
+        System.out.println(test);
     }
 }

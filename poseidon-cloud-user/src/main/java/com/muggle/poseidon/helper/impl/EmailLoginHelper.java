@@ -26,14 +26,7 @@ public class EmailLoginHelper implements LoginHelper {
 
     @Override
     public Authentication getAuth(String username, String credentials) {
-        UserSign userSign = new UserSign();
-        messageService.setAndGetVerificat(VerlifaTypeEnum.EMAIL.getType(),username);
-        userSign.setAuthType("EMAIL");
-        userSign.setEnable(true);
-        userSign.setPrincipal(username);
-//        UserInfo email = tokenService.getByUserSign(userSign);
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, "");
-        token.setDetails(token);
-        return token;
+
+        return null;
     }
 }

@@ -17,6 +17,7 @@ public class SimpleUserDO implements Serializable {
 
     private  static final long serialVersionUid=23456789L;
 
+    private Long id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime gmtCreate;
@@ -222,5 +223,11 @@ public class SimpleUserDO implements Serializable {
         this.enabled = enabled;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

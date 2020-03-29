@@ -97,6 +97,9 @@ public class SecurityBootStrapConfig {
             RequestMappingInfo requestMappingInfo = mappingInfoHandlerMethodEntry.getKey();
             HandlerMethod handlerMethod = mappingInfoHandlerMethodEntry.getValue();
             AuthUrlPathDO authUrlPathDO = new AuthUrlPathDO();
+            if (handlerMethod.getMethod().getDeclaringClass().getName().equals("com.muggle.poseidon.handler.PoseidonWebHandler")){
+                continue;
+            }
             // 类名
             authUrlPathDO.setClassName(handlerMethod.getMethod().getDeclaringClass().getName());
 

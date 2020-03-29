@@ -1,6 +1,12 @@
 package com.muggle.poseidon.controller;
 
 
+import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
+import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
+import com.muggle.poseidon.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -18,4 +24,12 @@ import com.muggle.poseidon.base.BaseController;
 @RequestMapping("/poseidon/user-info")
 public class UserInfoController extends BaseController {
 
+    @Autowired
+    MessageService messageService;
+
+    @GetMapping("/verification_code")
+    public ResultBean<String> getCode(String username){
+        String result = messageService.setAndGetVerificat(VerlifaTypeEnum.LOGIN.name(), SecurityMessageProperties.VERIFICATION + username);
+        return ResultBean.successData(result);
+    }
 }

@@ -21,13 +21,14 @@ public class UserInfoUtils {
         throw new SimplePoseidonException("禁止实例化");
     }
 
-    public static SimpleUserDO getUserInfo() throws BasePoseidonCheckException {
+    public static SimpleUserDO getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication==null||authentication.getDetails()==null){
            return null;
         }
+//          if (authentication==null||"anonymousUser".equals(principal)|| SecurityMessageProperties.BAD_TOKEN.equals(principal))
         if (!(authentication instanceof SimpleUserDO )){
-            throw new SimplePoseidonCheckException("用户登陆信息异常");
+//            throw new SimplePoseidonCheckException("用户登陆信息异常");
         }
         return (SimpleUserDO)authentication;
     }
