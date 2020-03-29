@@ -1,11 +1,12 @@
 package com.muggle.poseidon.config.security.config;
 
+import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.helper.LoginHelper;
 import com.muggle.poseidon.config.security.filter.SecurityLoginFilter;
 import com.muggle.poseidon.config.security.filter.SecurityTokenFilter;
 import com.muggle.poseidon.config.security.handler.*;
 import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
-import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
+import com.muggle.poseidon.service.MessageService;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
 import lombok.extern.slf4j.Slf4j;
@@ -56,11 +57,13 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     @Autowired
     SecurityStore securityStore;
     @Autowired
-    UserSecurityProperties properties;
+    PoseidonSecurityProperties properties;
 
     @Autowired
     TokenService tokenService;
 
+    @Autowired
+    MessageService messageService;
     @Autowired
     private Map<String, LoginHelper> loginHelperMap;
 
@@ -71,8 +74,9 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-
-        web.ignoring().antMatchers("/**/*.bmp", "/**/*.gif", "/**/*.png", "/**/*.jpg", "/**/*.ico","/**/*.html");
+        String [] paths={"/**/*.bmp", "/**/*.gif", "/**/*.png", "/**/*.jpg", "/**/*.ico","/**/*.html"};
+        SecurityStore.ACCESS_PATHS.addAll(Arrays.asList(paths));
+        web.ignoring().antMatchers(paths);
         log.debug("》》》》 初始化security 放行静态资源：{}" + "/**/*.bmp /**/*.png /**/*.gif /**/*.jpg /**/*.ico /**/*.js");
 
     }
@@ -81,12 +85,9 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         log.debug("》》》》 启动security配置");
 
-        List<String> ignorePath = properties.getIgnorePath();
-        if (ignorePath==null){
-            ignorePath=new ArrayList<>();
-        }
-        String [] paths=new String[ignorePath.size()];
-        ignorePath.toArray(paths);
+        List<String> accessPaths = SecurityStore.ACCESS_PATHS;
+        String [] paths=new String[accessPaths.size()];
+        accessPaths.toArray(paths);
         http.authorizeRequests().antMatchers(paths).permitAll()
                 .antMatchers("/admin/oauth/**").hasRole("admin")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
@@ -110,7 +111,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     private AccessDecisionManager accessDecisionManager(){
         List<AccessDecisionVoter<? extends Object>> decisionVoters
                 = Arrays.asList(
-                new PoseidonWebExpressionVoter(tokenService));
+                new PoseidonWebExpressionVoter(tokenService,properties));
         return new UnanimousBased(decisionVoters);
 
     }
@@ -122,7 +123,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
 
     private Filter getLoginFilter() {
 
-        SecurityLoginFilter poseidonTokenFilter = new SecurityLoginFilter(securityStore,properties);
+        SecurityLoginFilter poseidonTokenFilter = new SecurityLoginFilter(securityStore,properties,messageService);
         poseidonTokenFilter.setAuthenticationSuccessHandler(new PoseidonAuthenticationSuccessHandler());
         poseidonTokenFilter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
         poseidonTokenFilter.setAuthenticationManager(getAuthenticationManager());

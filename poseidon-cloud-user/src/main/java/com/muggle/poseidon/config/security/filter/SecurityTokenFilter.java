@@ -1,9 +1,9 @@
 package com.muggle.poseidon.config.security.filter;
 
+import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
-import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
 import com.muggle.poseidon.store.SecurityStore;
 import com.muggle.poseidon.util.JwtTokenUtils;
 import org.slf4j.Logger;
@@ -20,8 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * @program: poseidon-cloud-starter
@@ -34,7 +32,7 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
 
     private SecurityStore securityStore;
 
-    private UserSecurityProperties properties;
+    private PoseidonSecurityProperties properties;
 
     private static AntPathMatcher PATH_MATCHER=new AntPathMatcher();
 
@@ -42,7 +40,7 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
     /** logger */
     private static final Logger log = LoggerFactory.getLogger(SecurityTokenFilter.class);
 
-    public SecurityTokenFilter(SecurityStore securityStore, UserSecurityProperties properties) {
+    public SecurityTokenFilter(SecurityStore securityStore, PoseidonSecurityProperties properties) {
         this.securityStore = securityStore;
         this.properties=properties;
     }
@@ -53,21 +51,10 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException ,AccessDeniedException{
         logger.debug("》》》》 开始校验token");
         // 如果是开放权限的url直接通过
-        List<String> accessPaths = SecurityStore.ACCESS_PATHS;
-        /*
-        * 说明：如果配置了 AuthenticationManager 硬编码配置的权限会全部失效
-        * */
-        String requestURI = httpServletRequest.getRequestURI();
-        for (int i = 0; i < accessPaths.size(); i++) {
-            String access = accessPaths.get(i);
-            if (PATH_MATCHER.match(access,requestURI)){
-                filterChain.doFilter(httpServletRequest,httpServletResponse);
-                return;
-            }
-        }
+
         String token = httpServletRequest.getHeader("token");
         if (token==null){
-            processNotFund(httpServletRequest,httpServletResponse);
+            filterChain.doFilter(httpServletRequest,httpServletResponse);
             return;
         }
         UserDetails userDetails =null;
@@ -92,14 +79,6 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         log.debug("》》》》 填充token");
         filterChain.doFilter(httpServletRequest,httpServletResponse);
-    }
-
-    private void processNotFund(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.error("》》》》》》》》》》》》》》》 用户未登陆");
-        response.setContentType("application/json;charset=UTF-8");
-        final PrintWriter writer = response.getWriter();
-        writer.write("{\"code\":401,\"message\":\"用户未登录\"}");
-        writer.close();
     }
 
     private void verifyToken(String token) throws BasePoseidonCheckException {

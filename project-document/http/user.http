@@ -3,5 +3,11 @@ POST {{host}}/sign_in
 Accept:*/*
 Content-Type:application/json;charset=UTF-8
 
-{"loginType":"base","password":"admin","username":"admin","verification":"test"}
+{"loginType":"base","password":"admin","username":"admin","verification":"jmy5"}
+###  获取验证码
+GET {{host}}/poseidon/user-info/verification_code?username=admin
+
+### 测试
+GET {{host}}/test/string
+
 ###

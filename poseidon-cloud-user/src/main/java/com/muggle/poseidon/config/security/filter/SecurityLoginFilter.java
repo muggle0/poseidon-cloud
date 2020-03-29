@@ -1,10 +1,10 @@
 package com.muggle.poseidon.config.security.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
-import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
-import com.muggle.poseidon.service.TokenService;
+import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
+import com.muggle.poseidon.service.MessageService;
 import com.muggle.poseidon.store.SecurityStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -34,11 +34,14 @@ public class SecurityLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private SecurityStore securityStore;
 
-    private UserSecurityProperties properties;
+    private PoseidonSecurityProperties properties;
 
-    public SecurityLoginFilter(SecurityStore securityStore, UserSecurityProperties properties) {
+    private MessageService messageService;
+
+    public SecurityLoginFilter(SecurityStore securityStore, PoseidonSecurityProperties properties,MessageService messageService) {
         this.securityStore = securityStore;
         this.properties = properties;
+        this.messageService=messageService;
     }
 
     @Override
@@ -103,16 +106,12 @@ public class SecurityLoginFilter extends UsernamePasswordAuthenticationFilter {
         if (verification==null){
             throw new BadCredentialsException("请输入验证码");
         }
-        TokenService tokenService=null;
-    }
-
-    public static void main(String[] args) {
-        LoginMeesageDO loginMeesageDO = new LoginMeesageDO();
-        loginMeesageDO.setLoginType("base");
-        loginMeesageDO.setUsername("admin");
-        loginMeesageDO.setPassword("admin");
-        loginMeesageDO.setVerification("test");
-        String test= JSON.toJSONString(loginMeesageDO);
-        System.out.println(test);
+        String result = messageService.getAndDeletVerificat(VerlifaTypeEnum.LOGIN.name(), SecurityMessageProperties.VERIFICATION + username);
+        if (result==null){
+            throw new BadCredentialsException("验证码过期，请重新获取");
+        }
+        if (!result.equalsIgnoreCase(verification)){
+            throw new BadCredentialsException("验证码错误，请重新获取验证码");
+        }
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: poseidon-cloud-core
@@ -24,7 +25,7 @@ public class MessageServiceImpl implements MessageService {
     public String setAndGetVerificat(String type, String key) {
         if ("LOGIN".equals(type)){
             String result = this.randomVerificat();
-            stringRedisTemplate.opsForValue().set(key,result);
+            stringRedisTemplate.opsForValue().set(key,result,5L, TimeUnit.MINUTES);
             return result;
         }
         return null;
@@ -43,6 +44,11 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public String getAndDeletVerificat(String type, String key) {
+        if ("LOGIN".equals(type)){
+            String result = stringRedisTemplate.opsForValue().get(key);
+            stringRedisTemplate.delete(key);
+            return result;
+        }
         return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.muggle.poseidon.config.security.config;
 
+import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
@@ -32,8 +33,11 @@ public class PoseidonWebExpressionVoter extends WebExpressionVoter {
 
     private TokenService tokenService;
 
-    public PoseidonWebExpressionVoter(TokenService tokenService) {
+    private PoseidonSecurityProperties properties;
+
+    public PoseidonWebExpressionVoter(TokenService tokenService,PoseidonSecurityProperties properties) {
         this.tokenService = tokenService;
+        this.properties=properties;
     }
     /**
     * @author muggle
@@ -47,7 +51,9 @@ public class PoseidonWebExpressionVoter extends WebExpressionVoter {
     public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
         String requestUrl = fi.getRequestUrl();
         log.debug("》》》》 请求进入, url：【"+requestUrl+"】用户名：【"+authentication.getPrincipal()+"】");
-        List<String> accessPaths = SecurityStore.ACCESS_PATHS;
+        HashSet<String> accessPaths = new HashSet<>();
+        accessPaths.addAll(properties.getIgnorePath());
+        accessPaths.addAll(SecurityStore.ACCESS_PATHS);
         /** 获取所有放行权限（在adapter中的config 方法配置）*/
         for (String pattern :
                 accessPaths) {

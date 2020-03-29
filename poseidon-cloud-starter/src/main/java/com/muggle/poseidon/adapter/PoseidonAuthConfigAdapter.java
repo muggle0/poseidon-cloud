@@ -58,7 +58,9 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-        web.ignoring().antMatchers("/**/*.bmp", "/**/*.gif", "/**/*.png", "/**/*.jpg", "/**/*.ico","/**/*.html");
+        String [] paths={"/**/*.bmp", "/**/*.gif", "/**/*.png", "/**/*.jpg", "/**/*.ico","/**/*.html"};
+        SecurityStore.ACCESS_PATHS.addAll(Arrays.asList(paths));
+        web.ignoring().antMatchers(paths);
         log.debug("》》》》 初始化security 放行静态资源：{}" + "/**/*.bmp /**/*.png /**/*.gif /**/*.jpg /**/*.ico /**/*.js");
 
     }
@@ -67,13 +69,8 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         log.debug("》》》》 启动security配置");
 
-        List<String> ignorePath = properties.getIgnorePath();
-        if (ignorePath==null){
-            ignorePath=new ArrayList<>();
-        }
-        String [] paths=new String[ignorePath.size()];
-        ignorePath.toArray(paths);
-        SecurityStore.saveAccessPath(ignorePath);
+        String[] paths = new String[SecurityStore.ACCESS_PATHS.size()];
+        SecurityStore.ACCESS_PATHS.toArray(paths);
         http.authorizeRequests().antMatchers(paths).permitAll()
                 .antMatchers("/admin/oauth/**").hasRole("admin")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
@@ -94,7 +91,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     private AccessDecisionManager accessDecisionManager(){
         List<AccessDecisionVoter<? extends Object>> decisionVoters
                 = Arrays.asList(
-                new PoseidonWebExpressionVoter(tokenService));
+                new PoseidonWebExpressionVoter(tokenService,properties));
         return new UnanimousBased(decisionVoters);
 
     }

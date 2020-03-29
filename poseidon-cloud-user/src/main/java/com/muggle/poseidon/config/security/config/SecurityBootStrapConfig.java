@@ -1,7 +1,7 @@
 package com.muggle.poseidon.config.security.config;
 
+import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
 import io.swagger.annotations.Api;
@@ -48,20 +48,14 @@ public class SecurityBootStrapConfig {
     @Bean
     @RefreshScope
     @ConfigurationProperties(prefix = "poseidon")
-    public UserSecurityProperties getModel() {
-        return new UserSecurityProperties();
+    public PoseidonSecurityProperties getModel() {
+        return new PoseidonSecurityProperties();
     }
 
     @Autowired
-    public void saveIgnorePath(UserSecurityProperties properties){
-        List<String> ignorePath = properties.getIgnorePath();
-        SecurityStore.saveAccessPath(ignorePath);
-        SecurityStore.ACCESS_PATHS.add("/**/*.bmp");
-        SecurityStore.ACCESS_PATHS.add("/**/*.gif");
-        SecurityStore.ACCESS_PATHS.add("/**/*.png");
-        SecurityStore.ACCESS_PATHS.add("/**/*.jpg");
-        SecurityStore.ACCESS_PATHS.add("/**/*.ico");
-        SecurityStore.ACCESS_PATHS.add("/**/*.html");
+    public void saveIgnorePath(){
+        SecurityStore.ACCESS_PATHS.add("/api/**");
+        SecurityStore.ACCESS_PATHS.add("/poseidon/**");
         SecurityStore.ACCESS_PATHS.add("/registry/machine");
         SecurityStore.ACCESS_PATHS.add("/actuator/**");
         SecurityStore.ACCESS_PATHS.add("/error");

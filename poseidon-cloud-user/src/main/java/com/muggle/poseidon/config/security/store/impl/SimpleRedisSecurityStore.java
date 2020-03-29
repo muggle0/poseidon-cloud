@@ -1,6 +1,6 @@
 package com.muggle.poseidon.config.security.store.impl;
 
-import com.muggle.poseidon.config.security.properties.UserSecurityProperties;
+import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
 import com.muggle.poseidon.entity.SimpleUserDO;
 import com.muggle.poseidon.mapstruct.UserInfoMap;
@@ -34,7 +34,7 @@ public class SimpleRedisSecurityStore implements SecurityStore {
     private RedisTemplate<String,Object> redisTemplate;
 
     @Autowired
-    UserSecurityProperties properties;
+    PoseidonSecurityProperties properties;
 
     @Autowired
     UserInfoMap userInfoMap;
