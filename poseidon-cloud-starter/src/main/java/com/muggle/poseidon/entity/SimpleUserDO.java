@@ -1,9 +1,11 @@
 package com.muggle.poseidon.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -67,7 +69,15 @@ public class SimpleUserDO implements Serializable {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    private List<String> rolecodes;
+    private List<UserAuthorityDO> authorities;
+
+    public List<UserAuthorityDO> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<UserAuthorityDO> authorities) {
+        this.authorities = authorities;
+    }
 
     private List<String> randoms;
 
@@ -167,13 +177,6 @@ public class SimpleUserDO implements Serializable {
         this.sort = sort;
     }
 
-    public List<String> getRolecodes() {
-        return rolecodes;
-    }
-
-    public void setRolecodes(List<String> rolecodes) {
-        this.rolecodes = rolecodes;
-    }
 
     public String getPassword() {
         return password;

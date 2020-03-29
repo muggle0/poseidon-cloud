@@ -8,6 +8,7 @@ import com.muggle.poseidon.mapper.SystemMenuMapper;
 import com.muggle.poseidon.service.ISystemMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.muggle.poseidon.util.UserInfoUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
     @Override
     public List<SystemMenu> findMenus(SystemMenu systemMenu) {
         SystemMenuMapper baseMapper = this.baseMapper;
-        SimpleUserDO userInfo = UserInfoUtils.getUserInfo();
+        UserInfo userInfo = (UserInfo)UserInfoUtils.getUserInfo();
         List<SystemMenu> menus= baseMapper.findAllByUser(systemMenu,userInfo.getId());
         return menus;
     }

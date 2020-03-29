@@ -3,8 +3,10 @@ package com.muggle.poseidon.config.security.store.impl;
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
 import com.muggle.poseidon.entity.SimpleUserDO;
+import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.mapstruct.UserInfoMap;
 import com.muggle.poseidon.store.SecurityStore;
+import com.muggle.poseidon.user.pojo.UserAuthority;
 import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.util.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -42,18 +45,16 @@ public class SimpleRedisSecurityStore implements SecurityStore {
     @Override
     public UserDetails getUserdetail(String token) {
         String credential = properties.getCredential();
-//        JwtTokenUtils.createToken()
-        /*String random = JwtTokenUtils.getRandom(token, properties.getCredential());
-        String key = JwtTokenUtils.getKey(token, properties.getCredential());
-        String userJson = redisTemplate.opsForValue().get(key);
-        if (userJson==null){
-            throw new SimplePoseidonException("用户未登录");
+        String storeKey = JwtTokenUtils.getStoreKey(token, credential);
+        SimpleUserDO userDO = (SimpleUserDO) redisTemplate.opsForValue().get(storeKey);
+        String version = JwtTokenUtils.getRandom(token, credential);
+        for (String random : userDO.getRandoms()) {
+            if (random.equals(version)){
+                UserInfo userInfo = userInfoMap.DoToInfoMaping(userDO);
+                userInfo.setAuthorities(userDO.getAuthorities());
+                return userInfo;
+            }
         }
-        PoseidonUserDetail userDetails = JSON.parseObject(userJson, PoseidonUserDetail.class);
-        String uuid = userDetails.getUuid();
-        if (!random.equals(uuid)){
-            throw new SimplePoseidonException("用户未登录");
-        }*/
         return null;
     }
 
@@ -62,7 +63,6 @@ public class SimpleRedisSecurityStore implements SecurityStore {
         HashMap<String, Object> map = new HashMap<>();
         map.put("key",key);
         SimpleUserDO simpleUserDO = userInfoMap.userInfoMaping((UserInfo) userDetails);
-        ArrayList<String> strings = new ArrayList<>();
         String token = JwtTokenUtils.createToken(map, properties.getCredential(), properties.getExperTime());
         String random = JwtTokenUtils.getRandom(token, properties.getCredential());
         // 从redis中拿出用户的版本号
@@ -74,13 +74,7 @@ public class SimpleRedisSecurityStore implements SecurityStore {
         // 将新的版本号加入到版本号list中，用于校验token
         randoms.add(random);
         simpleUserDO.setRandoms(randoms);
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        ArrayList<String> roles = new ArrayList<>();
-        authorities.forEach( bean->{
-            String authority = bean.getAuthority();
-            roles.add(authority);
-        });
-
+        simpleUserDO.setAuthorities(((List<UserAuthorityDO>) userDetails.getAuthorities()));
         // 更新登录信息
         redisTemplate.opsForValue().set(key, simpleUserDO, expirationTime, TimeUnit.HOURS);
         return token;

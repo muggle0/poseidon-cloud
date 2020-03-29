@@ -1,5 +1,6 @@
 package com.muggle.poseidon.user.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.muggle.poseidon.base.BaseBean;
@@ -21,7 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value="UserAuthority对象", description="")
-public class UserAuthority extends BaseBean implements GrantedAuthority {
+public class UserAuthority extends BaseBean implements GrantedAuthority, Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -100,6 +100,11 @@ public class JwtTokenUtils {
         body.put("key",storeKey);
         return createToken(body,credential,experTime);
     }
+
+    public static boolean isExpired(String token, String credential) {
+        Date expiration = Jwts.parser().setSigningKey(credential).parseClaimsJws(token).getBody().getExpiration();
+        return false;
+    }
 }
 /**
  * token使用思路

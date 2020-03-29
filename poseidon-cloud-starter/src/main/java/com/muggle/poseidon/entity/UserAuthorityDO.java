@@ -2,6 +2,7 @@ package com.muggle.poseidon.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @author: muggle
  * @create: 2020-03-10 10:58
  */
-public class UserAuthorityDO implements GrantedAuthority {
+public class UserAuthorityDO implements GrantedAuthority , Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -117,6 +118,6 @@ public class UserAuthorityDO implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return requestType+":"+url;
+        return this.url;
     }
 }

@@ -27,7 +27,7 @@ public class UserInfoController extends BaseController {
     @Autowired
     MessageService messageService;
 
-    @GetMapping("/verification_code")
+    @GetMapping("/public/verification_code")
     public ResultBean<String> getCode(String username){
         String result = messageService.setAndGetVerificat(VerlifaTypeEnum.LOGIN.name(), SecurityMessageProperties.VERIFICATION + username);
         return ResultBean.successData(result);

@@ -3,11 +3,12 @@ POST {{host}}/sign_in
 Accept:*/*
 Content-Type:application/json;charset=UTF-8
 
-{"loginType":"base","password":"admin","username":"admin","verification":"jmy5"}
+{"loginType":"base","password":"admin","username":"admin","verification":"Amqw"}
+
 ###  获取验证码
-GET {{host}}/poseidon/user-info/verification_code?username=admin
+GET {{host}}/poseidon/user-info/public/verification_code?username=admin
 
 ### 测试
 GET {{host}}/api/test/string
-
+token:eyJhbGciOiJIUzUxMiJ9.eyJSQU5ET00iOiJjMjNjNzNmMi05NzI3LTRkNmYtYmE5NS0yNzIyOTg2ZTUzMTEiLCJrZXkiOiJhdXRoOnVzZXJuYW1lOmFkbWluIn0.TS5D3XAwSQUyVYgYHlG51xMjA3KCNijjDdaQ9szW8WYjX3xOK7j8mkFUg3CyX9IStJeokNzHpirpKKrQ5JlKvA
 ###
