@@ -48,6 +48,20 @@ spring.cloud.sentinel.transport.dashboard=127.0.0.1:8000
 ##  logstash 安装
 `logstash` 作为日志的输出管道，将日志处理和框架解耦开来；它能将应用日志输出到 `mq`, `db` ,`file` 等地方
 
+该框架配置的是将日志输出到mongoDB,因此我们需要先对logstash 安装MongoDB插件：
+
+首先要给logstash配置国内ruby镜像源：打开安装目录下的 `Gemfile` ,把 `source` 改为：
+```properties
+source "https://gems.ruby-china.com/"
+```
+然后在bin目录下运行
+
+```aidl
+ ./logstash-plugin install logstash-input-mongodb
+```
+
+安装好之后，在MongoDB新建 `database` 为 `poseidon_cloud` , `collection` 为 `app_log`
+
 ```config
 # Sample Logstash configuration for creating a simple
 # Beats -> Logstash -> Elasticsearch pipeline.
@@ -89,6 +103,12 @@ filter {
     }
 }
 ```
+
+然后执行命令：
+```aidl
+ ./logstash.bat -f logstash.conf
+```
+
 # 框架的使用（集成业务）
 
 # 教程资料
