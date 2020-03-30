@@ -106,7 +106,7 @@ public class WebResultHandler {
     public ResultBean exceptionHandler(Exception e, HttpServletRequest req) {
         try {
             log.error("系统异常：" + req.getMethod() + req.getRequestURI()+" user: "+ SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e);
-            // todo
+            // todo rabbitmq message
             return ResultBean.error("系统异常");
         }catch (Exception err){
             log.error("紧急！！！ 严重的异常",err);
