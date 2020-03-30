@@ -5,7 +5,9 @@ import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.service.TokenService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.util.AntPathMatcher;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +17,8 @@ import java.util.Set;
  * @Date: 2020/3/24$
  **/
 public class CommonTokenService implements TokenService {
+    private AntPathMatcher matcher=new AntPathMatcher();
+
     @Override
     public UserDetails getUserById(Long id) {
         return null;
@@ -22,6 +26,13 @@ public class CommonTokenService implements TokenService {
 
     @Override
     public boolean rooleMatch(Set<String> rooleCodes, String path) {
+
+        Iterator<String> iterator = rooleCodes.iterator();
+        while (iterator.hasNext()){
+            String next = iterator.next();
+            boolean match = matcher.match(next, path);
+            return match;
+        }
         return false;
     }
 

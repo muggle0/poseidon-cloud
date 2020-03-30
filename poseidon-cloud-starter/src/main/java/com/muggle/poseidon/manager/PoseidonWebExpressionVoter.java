@@ -1,6 +1,7 @@
 package com.muggle.poseidon.manager;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
+import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.properties.SecurityMessageProperties;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
@@ -8,7 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -35,18 +35,21 @@ public class PoseidonWebExpressionVoter extends WebExpressionVoter {
 
     private PoseidonSecurityProperties properties;
 
-    public PoseidonWebExpressionVoter(TokenService tokenService,PoseidonSecurityProperties properties) {
+    private String application;
+
+    public PoseidonWebExpressionVoter(TokenService tokenService,PoseidonSecurityProperties properties,String application) {
         this.tokenService = tokenService;
         this.properties=properties;
+        this.application= application;
     }
     /**
-    * @author muggle
-    * @Description: 权限校验方法（投票器） 1通过，-1不通过 0弃权
-    * @Param: fixme
-    * @return:
-    * @throws
-    * @date 2019/11/5 11:21
-    */
+     * @author muggle
+     * @Description: 权限校验方法（投票器） 1通过，-1不通过 0弃权
+     * @Param:
+     * @return:
+     * @throws
+     * @date 2019/11/5 11:21
+     */
     @Override
     public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
         String requestUrl = fi.getRequestUrl();
@@ -68,14 +71,17 @@ public class PoseidonWebExpressionVoter extends WebExpressionVoter {
             return ACCESS_DENIED;
         }
         /** 获取用户角色，并通过角色去匹配权限*/
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        List<UserAuthorityDO> authorities = (List<UserAuthorityDO>) authentication.getAuthorities();
         HashSet<String> roleCodes = new HashSet<>();
         authorities.forEach(bean -> {
-            String authority = bean.getAuthority();
-            roleCodes.add(authority);
+            String attribute = bean.getAuthority();
+            if (application.equals(bean.getApplication())&&bean.isEnable()){
+                roleCodes.add(attribute);
+            }
         });
         boolean b = tokenService.rooleMatch(roleCodes, requestUrl);
         if (b) {
+            log.debug("》》》》 用户权限认证通过，用户名：【"+authentication.getPrincipal()+"】");
             return ACCESS_GRANTED;
         }
         log.debug("》》》》 用户无权限访问，用户名：【"+authentication.getPrincipal()+"】");
@@ -89,6 +95,7 @@ public class PoseidonWebExpressionVoter extends WebExpressionVoter {
      */
     private boolean tokenVerify(Authentication authentication) {
         boolean equals = SecurityMessageProperties.BAD_TOKEN.equals(authentication.getPrincipal());
+
         Object details = authentication.getDetails();
         if (details==null||! (details instanceof UserDetails) ){
             return true;

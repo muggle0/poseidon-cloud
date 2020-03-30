@@ -3,6 +3,7 @@ package com.muggle.poseidon.filter;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
+import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.SimpleUserDO;
 import com.muggle.poseidon.properties.SecurityMessageProperties;
 import com.muggle.poseidon.store.SecurityStore;
@@ -34,6 +35,7 @@ import java.util.List;
 public class SecurityTokenFilter extends OncePerRequestFilter {
 
     private SecurityStore securityStore;
+    private PoseidonSecurityProperties properties;
 
 
     /** logger */
@@ -41,6 +43,7 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
 
     public SecurityTokenFilter(SecurityStore securityStore,PoseidonSecurityProperties properties) {
         this.securityStore = securityStore;
+        this.properties=properties;
     }
 
     /**
@@ -54,8 +57,9 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException ,AccessDeniedException{
-        log.debug("》》》》 开始校验token");
+        logger.debug("》》》》 开始校验token"+httpServletRequest.getRequestURI());
         // 如果是开放权限的url直接通过
+
         String token = httpServletRequest.getHeader("token");
         if (token==null){
             filterChain.doFilter(httpServletRequest,httpServletResponse);
@@ -63,9 +67,10 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
         }
         UserDetails userDetails =null;
         try {
+            verifyToken(token);
             userDetails = securityStore.getUserdetail(token);
-        }catch (BasePoseidonCheckException e){
-            log.error("》》》》 用户凭证为badToken",e);
+        }catch (Exception e){
+            log.error(" 》》》》 用户凭证为badToken uri: ["+httpServletRequest.getRequestURI()+"]  message:["+e.getMessage()+"]");
             SecurityContextHolder.getContext().setAuthentication(getBadToken(e.getMessage()));
             filterChain.doFilter(httpServletRequest,httpServletResponse);
             return;
@@ -73,7 +78,7 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
 
         if (userDetails==null){
             log.info("该用户不存在 token:{}",token );
-            SecurityContextHolder.getContext().setAuthentication(getBadToken("该用户不存在，请重新登录"));
+            SecurityContextHolder.getContext().setAuthentication(getBadToken("登录过期！"));
             filterChain.doFilter(httpServletRequest,httpServletResponse);
             return;
         }
@@ -83,9 +88,27 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
         log.debug("》》》》 填充token");
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
+
+    private void verifyToken(String token) throws BasePoseidonCheckException {
+        if (properties.getCredential()==null){
+            throw new SimplePoseidonCheckException("凭证未设置");
+        }
+        String random;
+        try {
+            random = JwtTokenUtils.getRandom(token,properties.getCredential());
+        }catch (Exception e){
+            throw new SimplePoseidonCheckException("凭证错误——无法解析token  " +token);
+        }
+        if (random==null){
+            throw new SimplePoseidonCheckException("凭证错误: 非法凭证，无版本号"+token);
+        }
+    }
+
     private UsernamePasswordAuthenticationToken getBadToken(String message){
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(SecurityMessageProperties.BAD_TOKEN,null,null);
         authenticationToken.setDetails(message);
         return authenticationToken;
+
     }
+
 }

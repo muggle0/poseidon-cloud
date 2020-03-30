@@ -8,6 +8,7 @@ import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.UnanimousBased;
@@ -36,11 +37,13 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     private TokenService tokenService;
     private SecurityStore securityStore;
     private PoseidonSecurityProperties properties;
+    private String application;
 
-    public PoseidonAuthConfigAdapter(TokenService tokenService, SecurityStore securityStore,PoseidonSecurityProperties properties) {
+    public PoseidonAuthConfigAdapter(TokenService tokenService, SecurityStore securityStore,PoseidonSecurityProperties properties,String application) {
         this.tokenService = tokenService;
         this.securityStore = securityStore;
         this.properties=properties;
+        this.application=application;
     }
 
     public PoseidonAuthConfigAdapter(boolean disableDefaults, TokenService tokenService, SecurityStore securityStore) {
@@ -91,7 +94,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     private AccessDecisionManager accessDecisionManager(){
         List<AccessDecisionVoter<? extends Object>> decisionVoters
                 = Arrays.asList(
-                new PoseidonWebExpressionVoter(tokenService,properties));
+                new PoseidonWebExpressionVoter(tokenService,properties,application));
         return new UnanimousBased(decisionVoters);
 
     }

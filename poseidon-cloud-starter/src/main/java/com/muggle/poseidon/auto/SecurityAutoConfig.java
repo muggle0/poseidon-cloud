@@ -64,7 +64,7 @@ public class SecurityAutoConfig {
         if (securityStore==null){
             throw new SimplePoseidonException("请先注册 securityStore");
         }
-        return new PoseidonAuthConfigAdapter(tokenService,securityStore,properties);
+        return new PoseidonAuthConfigAdapter(tokenService,securityStore,properties,appName);
     }
 
     /**

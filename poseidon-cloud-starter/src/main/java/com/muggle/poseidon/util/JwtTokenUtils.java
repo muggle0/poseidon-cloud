@@ -105,6 +105,21 @@ public class JwtTokenUtils {
         Date expiration = Jwts.parser().setSigningKey(credential).parseClaimsJws(token).getBody().getExpiration();
         return false;
     }
+
+    public static String getRoot(String credential){
+        UUID uuid = UUID.randomUUID();
+        String compact = Jwts.builder().signWith(SignatureAlgorithm.HS512, credential)
+                .setIssuer(SecurityMessageProperties.ISSUER)
+                .setSubject(SecurityMessageProperties.SUBJECT)
+                .claim(SecurityMessageProperties.RANDOM,uuid.toString())
+                .compact();
+        return compact;
+    }
+
+    public static void main(String[] args) {
+        String root = JwtTokenUtils.getRoot("poseidon-cloud");
+        System.out.println(root);
+    }
 }
 /**
  * token使用思路
