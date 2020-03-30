@@ -129,6 +129,30 @@ filter {
 
 # 框架的使用（集成业务）
 
+现在将展示如何将我们的业务代码集成到框架中；
+
+第一步：创建一个 `spring boot` 项目，并修改maven配置文件。 框架的maven依赖你可以选择install 到本地，也可以在其中添加一个模块项目。
+
+这里以安装到本地为例
+执行命令
+
+```xml
+mvn install org.springframework.boot:spring-boot-maven-plugin:2.2.5.RELEASE:build-info
+```
+创建maven项目，改`parent`:
+
+```xml
+ <parent>
+        <groupId>com.muggle</groupId>
+        <artifactId>poseidon-cloud-parent</artifactId>
+        <version>0.0.1.Alpha</version>
+    </parent>
+```
+
+## 部署到docker
+
+框架组件均支持部署到docker
+
 # 教程资料
 
 本项目教程发布在 `http://muggle-book.gitee.io/` 
