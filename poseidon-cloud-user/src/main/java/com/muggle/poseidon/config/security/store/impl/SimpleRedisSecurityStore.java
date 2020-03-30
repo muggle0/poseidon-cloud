@@ -1,6 +1,7 @@
 package com.muggle.poseidon.config.security.store.impl;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
+import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
 import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
 import com.muggle.poseidon.entity.SimpleUserDO;
 import com.muggle.poseidon.entity.UserAuthorityDO;
@@ -10,6 +11,7 @@ import com.muggle.poseidon.user.pojo.UserAuthority;
 import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.util.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,10 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,12 +38,28 @@ public class SimpleRedisSecurityStore implements SecurityStore {
     @Autowired
     PoseidonSecurityProperties properties;
 
+    @Value("${poseidon.root.token}")
+    private String root;
+    @Value("${spring.application.name}")
+    private String application;
+
     @Autowired
     UserInfoMap userInfoMap;
 
     @Override
-    public UserDetails getUserdetail(String token) {
+    public UserDetails getUserdetail(String token)throws BasePoseidonCheckException {
         String credential = properties.getCredential();
+        if (token.equals(root)){
+            String random = JwtTokenUtils.getRandom(token, credential);
+            UserAuthorityDO userAuthorityDO = new UserAuthorityDO();
+            userAuthorityDO.setEnable(true);
+            userAuthorityDO.setUrl("/**");
+            userAuthorityDO.setApplication(application);
+            UserInfo userInfo = new UserInfo().setUsername("root").setAuthorities(Arrays.asList(userAuthorityDO)).setAccountNonExpired(true)
+                    .setAccountNonLocked(true).setNickname("root").setEnabled(true);
+            userInfo.setCode(random);
+            return userInfo;
+        }
         String storeKey = JwtTokenUtils.getStoreKey(token, credential);
         SimpleUserDO userDO = (SimpleUserDO) redisTemplate.opsForValue().get(storeKey);
         String version = JwtTokenUtils.getRandom(token, credential);
@@ -100,12 +115,4 @@ public class SimpleRedisSecurityStore implements SecurityStore {
         return null;
     }
 
-    public String getVerificat(VerlifaTypeEnum verlifType, String username) {
-//        StringSecurityMessageProperties.USER_NAME+username
-        return null;
-    }
-
-    public void deleteVerificat(VerlifaTypeEnum verlifType, String username) {
-        redisTemplate.delete(verlifType.getName() + ":" + username);
-    }
 }
