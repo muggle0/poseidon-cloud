@@ -1,8 +1,11 @@
 package com.muggle.poseidon.config;
 
+import com.muggle.poseidon.aop.FeignAop;
+import com.muggle.poseidon.aop.FeignInterceptor;
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
+import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -38,5 +41,15 @@ public class CommonConfig {
     @Bean
     public SecurityStore securityStore(){
         return new CommonTokenStore(redisTemplate,properties,root,application);
+    }
+
+    @Bean
+    RequestInterceptor getInsetceptor(){
+        return new FeignInterceptor(root);
+    }
+
+    @Bean
+    FeignAop getFeignAop(){
+        return new FeignAop();
     }
 }
