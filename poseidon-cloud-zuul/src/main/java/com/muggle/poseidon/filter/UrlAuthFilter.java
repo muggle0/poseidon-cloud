@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -71,9 +72,20 @@ public class UrlAuthFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         List<String> strings = (List<String>) redisTemplate.opsForValue().get("auth:zuul:url");
-
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        String token = request.getHeader("token");
+        if (rootToken.equals(token)) {
+            ctx.setSendZuulResponse(false);
+            HttpServletResponse response = ctx.getResponse();
+            response.addHeader("Content-Type","application/json;charset=UTF-8");
+            ctx.setResponseBody("{\n" +
+                    "  \"message\": \"请求失败，非法token\",\n" +
+                    "  \"code\": 500,\n" +
+                    "  \"data\": null\n" +
+                    "}");
+            return null;
+        }
         boolean match = false;
         String requestURI = request.getRequestURI();
         boolean empty = CollectionUtils.isEmpty(strings);
@@ -88,12 +100,7 @@ public class UrlAuthFilter extends ZuulFilter {
         }
         // 如果是需要验证登录的url
         if (match){
-            String token = request.getHeader("token");
             if (token!=null){
-                if (rootToken.equals(token)) {
-                    ctx.setSendZuulResponse(false);
-                    ctx.setResponseBody("{\"result\":\"username is not correct!\"}");
-                }
                 try {
                     // 查看token是否可解析并带有版本号
                     String random = JwtTokenUtils.getRandom(token, credential);

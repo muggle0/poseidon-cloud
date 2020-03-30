@@ -11,4 +11,9 @@ GET {{host}}/poseidon/user-info/public/verification_code?username=admin
 ### 测试
 GET {{host}}/api/test/string
 token:eyJhbGciOiJIUzUxMiJ9.eyJSQU5ET00iOiJjMjNjNzNmMi05NzI3LTRkNmYtYmE5NS0yNzIyOTg2ZTUzMTEiLCJrZXkiOiJhdXRoOnVzZXJuYW1lOmFkbWluIn0.TS5D3XAwSQUyVYgYHlG51xMjA3KCNijjDdaQ9szW8WYjX3xOK7j8mkFUg3CyX9IStJeokNzHpirpKKrQ5JlKvA
+
+### 测试zuul
+GET {{host}}/api/test/string
+token:eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJQT1NFSURPTi1DTE9VRCIsInN1YiI6IlBPU0VJRE9OX0NMQUlNIiwiUkFORE9NIjoiMmNlMjZlZmUtZThlMy00ODI4LWIxNGQtMWMxMWU5ZTJkYWFmIn0.gIAFgVjyYHCCPNFKGmogiBDZDtWrpJZtzz8axvvKpJpQwknUaqOVY4NTill6c3a5jmSnmprgKcRN8pntzAL9AQ
+
 ###
