@@ -43,6 +43,7 @@ public class PoseidonTokenService implements TokenService {
 
     @Autowired
     private UserAuthorityMapper authorityMapper;
+
     private AntPathMatcher matcher=new AntPathMatcher();
 
     @Override

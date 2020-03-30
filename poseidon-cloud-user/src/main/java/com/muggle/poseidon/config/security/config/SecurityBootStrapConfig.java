@@ -54,9 +54,7 @@ public class SecurityBootStrapConfig {
 
     @Autowired
     public void saveIgnorePath(){
-
         SecurityStore.ACCESS_PATHS.add("/registry/machine");
-        SecurityStore.ACCESS_PATHS.add("/actuator/**");
         SecurityStore.ACCESS_PATHS.add("/error");
     }
     @Bean

@@ -1,16 +1,18 @@
 package com.muggle.poseidon.config.security.config;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
+import com.muggle.poseidon.filter.SecurityTokenFilter;
 import com.muggle.poseidon.helper.LoginHelper;
 import com.muggle.poseidon.config.security.filter.SecurityLoginFilter;
-import com.muggle.poseidon.config.security.filter.SecurityTokenFilter;
 import com.muggle.poseidon.config.security.handler.*;
 import com.muggle.poseidon.config.security.properties.SecurityMessageProperties;
+import com.muggle.poseidon.manager.PoseidonWebExpressionVoter;
 import com.muggle.poseidon.service.MessageService;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -32,7 +34,6 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.Filter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,8 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     MessageService messageService;
     @Autowired
     private Map<String, LoginHelper> loginHelperMap;
+    @Value("${spring.application.name}")
+    private String application;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -112,7 +115,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
     private AccessDecisionManager accessDecisionManager(){
         List<AccessDecisionVoter<? extends Object>> decisionVoters
                 = Arrays.asList(
-                new PoseidonWebExpressionVoter(tokenService,properties));
+                new PoseidonWebExpressionVoter(tokenService,properties,application));
         return new UnanimousBased(decisionVoters);
 
     }

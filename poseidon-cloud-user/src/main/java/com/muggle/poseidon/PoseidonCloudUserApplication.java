@@ -20,7 +20,6 @@ public class PoseidonCloudUserApplication {
     private static final Logger log = LoggerFactory.getLogger(PoseidonCloudUserApplication.class);
 
     public static void main(String[] args) {
-        log.info("程序加载中 \uF06C\t\uF06C\t\uF06C\t\uF06C\t\uF06C\t\uF06C\t\uF06C\t\uF06C\t\uF06C\t");
         SpringApplication.run(PoseidonCloudUserApplication.class, args);
     }
 
