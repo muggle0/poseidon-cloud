@@ -17,6 +17,7 @@ import java.util.Set;
  * @Date: 2020/3/24$
  **/
 public class CommonTokenService implements TokenService {
+
     private AntPathMatcher matcher=new AntPathMatcher();
 
     @Override

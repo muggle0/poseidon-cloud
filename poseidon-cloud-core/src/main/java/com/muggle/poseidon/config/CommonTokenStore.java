@@ -31,22 +31,25 @@ import java.util.concurrent.TimeUnit;
 public class CommonTokenStore implements SecurityStore {
 
 
-    @Resource
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
-    @Autowired
-    PoseidonSecurityProperties properties;
+    private PoseidonSecurityProperties properties;
 
-    @Value("${poseidon.root.token}")
     private String root;
-    @Value("${spring.application.name}")
+
     private String application;
 
+    public CommonTokenStore(RedisTemplate<String, Object> redisTemplate, PoseidonSecurityProperties properties, String root, String application) {
+        this.redisTemplate = redisTemplate;
+        this.properties = properties;
+        this.root = root;
+        this.application = application;
+    }
 
     @Override
-    public UserDetails getUserdetail(String token)throws BasePoseidonCheckException {
+    public UserDetails getUserdetail(String token) throws BasePoseidonCheckException {
         String credential = properties.getCredential();
-        if (token.equals(root)){
+        if (token.equals(root)) {
             String random = JwtTokenUtils.getRandom(token, credential);
             UserAuthorityDO userAuthorityDO = new UserAuthorityDO();
             userAuthorityDO.setEnable(true);
@@ -61,9 +64,9 @@ public class CommonTokenStore implements SecurityStore {
         SimpleUserDO userDO = (SimpleUserDO) redisTemplate.opsForValue().get(storeKey);
         String version = JwtTokenUtils.getRandom(token, credential);
         for (String random : userDO.getRandoms()) {
-            if (random.equals(version)){
-                UserInfo userInfo =new UserInfo();
-                BeanUtils.copyProperties(userDO,userInfo);
+            if (random.equals(version)) {
+                UserInfo userInfo = new UserInfo();
+                BeanUtils.copyProperties(userDO, userInfo);
                 return userInfo;
             }
         }
@@ -72,7 +75,7 @@ public class CommonTokenStore implements SecurityStore {
 
     @Override
     public String saveUser(UserDetails userDetails, long expirationTime, String key) {
-       return null;
+        return null;
     }
 
     @Override
