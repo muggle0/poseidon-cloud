@@ -11,7 +11,7 @@
 
 # 项目说明
 
-集成 spring-cloud 环境，方便分布式项目的开发
+集成 `spring-cloud` 环境，方便分布式项目的快速开发。使用该框架，使用者无需操心业务之外的问题，极大的节省了开发者的开发时间。
 
 ## 使用的组件
 - [sentinel](https://github.com/alibaba/spring-cloud-alibaba/wiki/Sentinel "点我") (阿里开源服务限流框架)
@@ -125,13 +125,17 @@ filter {
 项目启动完成后找到文件 `.\project-document\http\user.http` 发送请求进行测试。
 
 访问 `http://49.233.148.110:8949/nacos/#/login` 用户名和密码均为 `nacos` 可以看到注册中心和配置中心的信息。
+**注意：为了不影响项目的使用，请不要去改里面的配置**
 
 # 框架的使用（集成业务）
 
 # 教程资料
 
+本项目教程发布在 `http://muggle-book.gitee.io/` 
+
 # 二次开发
-// 
+
+ 
 
 ```
 Eureka 中的 metadataMap 是专门用来存放一些自定义的数据，当注册中心或者其他服务需要此服务的某些配置时可以在 metadataMap 里取。实际上，每个 instance 都有各自的 metadataMap，map 中存放着需要用到的属性。例如，上面配置中的 eureka.instance.metadata-map.user.name，当这个服务成功注册到 Eureka 上，Spring Boot Admin 就会拿到这个 instance，进而拿到 metadataMap 里的属性，然后放入请求头，向此服务发送请求，访问此服务的 Actuator 开放的端点。
