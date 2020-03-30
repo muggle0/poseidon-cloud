@@ -10,6 +10,7 @@
 ![AppVeyor](https://img.shields.io/badge/jdk8-support-orange.svg)
 
 # 项目说明
+
 集成 spring-cloud 环境，方便分布式项目的开发
 
 ## 使用的组件
@@ -62,6 +63,8 @@ source "https://gems.ruby-china.com/"
 
 安装好之后，在MongoDB新建 `database` 为 `poseidon_cloud` , `collection` 为 `app_log`
 
+在bin目录下新建文件 `logstash.conf`
+
 ```config
 # Sample Logstash configuration for creating a simple
 # Beats -> Logstash -> Elasticsearch pipeline.
@@ -108,6 +111,20 @@ filter {
 ```aidl
  ./logstash.bat -f logstash.conf
 ```
+到这里`logstash`就配置启动完成了
+
+## 运行项目
+
+环境搭建完毕，我们开始运行项目。
+先启动 `tx-manager` 模块，访问 `localhost:8001` 密码是 `codingapi` 输入密码进入管理界面，说明项目启动成功
+
+再启动 `poseidon-cloud-admin` 访问 `localhost:8001` 可以看到一个监控界面，说明项目启动成功
+
+最后启动 `user-center` 和 `document-center`
+
+项目启动完成后找到文件 `.\project-document\http\user.http` 发送请求进行测试。
+
+访问 `http://49.233.148.110:8949/nacos/#/login` 用户名和密码均为 `nacos` 可以看到注册中心和配置中心的信息。
 
 # 框架的使用（集成业务）
 
