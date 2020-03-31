@@ -98,8 +98,28 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.sdk</groupId>
+            <artifactId>ding-sdk</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/taobao-sdk-java-auto.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>BOOT-INF/classes/</targetPath>
+            </resource>
+        </resources>
        <plugins>
            <plugin>
                <artifactId>maven-compiler-plugin</artifactId>
