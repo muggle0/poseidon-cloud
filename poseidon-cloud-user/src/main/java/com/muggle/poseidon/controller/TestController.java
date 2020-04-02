@@ -46,7 +46,8 @@ public class TestController {
     @GetMapping("/string")
     @ApiOperation(value = "方法注释")
     public ResultBean test() {
-        return success();
+        throw new RuntimeException("我被猪@了");
+//        return success();
     }
 
     @PostMapping("/insert")

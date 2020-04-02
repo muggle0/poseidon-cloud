@@ -3,6 +3,7 @@ package com.muggle.poseidon.config;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
 import com.muggle.poseidon.base.exception.BasePoseidonException;
+import com.muggle.poseidon.listener.ExceptionEvent;
 import com.muggle.poseidon.properties.DingParamProperties;
 import com.muggle.poseidon.properties.DingSendEnum;
 import com.muggle.poseidon.util.DingUtil;
@@ -10,6 +11,8 @@ import com.muggle.poseidon.util.UserInfoUtils;
 import com.netflix.client.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +25,10 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 @Slf4j
 public class WebResultHandler {
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
 
 
     /**
@@ -111,6 +118,8 @@ public class WebResultHandler {
     public ResultBean exceptionHandler(Exception e, HttpServletRequest req) {
         try {
             UserDetails userInfo = UserInfoUtils.getUserInfo();
+            ExceptionEvent exceptionEvent = new ExceptionEvent(String.format("系统异常: [ %s ] 时间戳： [%d]  ", e.getMessage(),System.currentTimeMillis()), this);
+            applicationContext.publishEvent(exceptionEvent);
             log.error("系统异常：" + req.getMethod() + req.getRequestURI()+" user: "+userInfo.toString() , e);
             return ResultBean.error("系统异常");
         }catch (Exception err){

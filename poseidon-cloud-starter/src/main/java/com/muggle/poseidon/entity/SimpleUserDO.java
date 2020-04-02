@@ -2,6 +2,7 @@ package com.muggle.poseidon.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.List;
  * @create: 2019-11-05
  **/
 
-public class SimpleUserDO implements Serializable {
+public class SimpleUserDO implements Serializable, UserDetails {
 
     private  static final long serialVersionUid=23456789L;
 

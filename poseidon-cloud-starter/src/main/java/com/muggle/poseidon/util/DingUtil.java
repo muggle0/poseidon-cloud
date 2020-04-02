@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * @Description:
@@ -35,6 +36,9 @@ public class DingUtil {
         OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
         text.setContent(message);
         request.setText(text);
+        OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
+        at.setIsAtAll("true");
+        request.setAt(at);
         OapiRobotSendResponse response = client.execute(request);
         return response;
     }

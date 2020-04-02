@@ -24,11 +24,11 @@ public class UserInfoUtils {
     public static UserDetails getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication==null||authentication.getDetails()==null){
-           return null;
+            return new SimpleUserDO();
         }
         if (!(authentication.getDetails() instanceof UserDetails )){
 //            throw new SimplePoseidonCheckException("用户登陆信息异常");
-            return null;
+            return new SimpleUserDO();
         }
         return ((UserDetails) authentication.getDetails());
     }
