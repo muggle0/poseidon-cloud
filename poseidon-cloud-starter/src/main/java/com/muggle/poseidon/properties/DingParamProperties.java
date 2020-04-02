@@ -1,4 +1,4 @@
-package com.muggle.poseidon.constant;
+package com.muggle.poseidon.properties;
 
 public interface DingParamProperties {
     String  SECRET="SEC905b3a3849e9b438b15d2f17029e73b8bc23d942417ab3fb04f1f94d41270a41";

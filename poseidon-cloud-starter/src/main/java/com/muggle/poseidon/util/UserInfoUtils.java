@@ -26,10 +26,10 @@ public class UserInfoUtils {
         if (authentication==null||authentication.getDetails()==null){
            return null;
         }
-//          if (authentication==null||"anonymousUser".equals(principal)|| SecurityMessageProperties.BAD_TOKEN.equals(principal))
-        if (!(authentication instanceof UserDetails )){
+        if (!(authentication.getDetails() instanceof UserDetails )){
 //            throw new SimplePoseidonCheckException("用户登陆信息异常");
+            return null;
         }
-        return (UserDetails)authentication;
+        return ((UserDetails) authentication.getDetails());
     }
 }

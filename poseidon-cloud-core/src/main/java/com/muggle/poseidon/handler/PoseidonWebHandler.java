@@ -31,7 +31,6 @@ public class PoseidonWebHandler implements ErrorController {
 
     @RequestMapping(value = "/public/notfound", produces = "application/json;charset=UTF-8")
     public ResultBean notfund(HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
         log.info("》》》》》》》》》》》》》》》》》 客户端访问了错误的页面");
         return ResultBean.error("找不到页面", 404);
     }

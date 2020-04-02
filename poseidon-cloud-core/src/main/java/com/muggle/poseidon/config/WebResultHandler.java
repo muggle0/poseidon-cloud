@@ -3,9 +3,14 @@ package com.muggle.poseidon.config;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
 import com.muggle.poseidon.base.exception.BasePoseidonException;
+import com.muggle.poseidon.properties.DingParamProperties;
+import com.muggle.poseidon.properties.DingSendEnum;
+import com.muggle.poseidon.util.DingUtil;
+import com.muggle.poseidon.util.UserInfoUtils;
 import com.netflix.client.ClientException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -105,8 +110,8 @@ public class WebResultHandler {
     @ExceptionHandler(value = {Exception.class})
     public ResultBean exceptionHandler(Exception e, HttpServletRequest req) {
         try {
-            log.error("系统异常：" + req.getMethod() + req.getRequestURI()+" user: "+ SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e);
-            // todo rabbitmq message
+            UserDetails userInfo = UserInfoUtils.getUserInfo();
+            log.error("系统异常：" + req.getMethod() + req.getRequestURI()+" user: "+userInfo.toString() , e);
             return ResultBean.error("系统异常");
         }catch (Exception err){
             log.error("紧急！！！ 严重的异常",err);

@@ -1,11 +1,11 @@
-package com.muggle.poseidon.utils;
+package com.muggle.poseidon.util;
 
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.dingtalk.api.response.OapiRobotSendResponse;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
-import com.muggle.poseidon.constant.DingSendEnum;
+import com.muggle.poseidon.properties.DingSendEnum;
 import com.taobao.api.ApiException;
 import org.apache.commons.codec.binary.Base64;
 
@@ -26,20 +26,20 @@ public class DingUtil {
         throw new SimplePoseidonException("禁止实例化");
     }
 
-    public static OapiRobotSendResponse sendMessage(String url, DingSendEnum dingSendEnum, String secret) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, ApiException {
+    public static OapiRobotSendResponse sendMessage(String url, DingSendEnum dingSendEnum, String secret,String message) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, ApiException {
         long timestamp = System.currentTimeMillis();
         String key = getKey(timestamp, secret);
         DingTalkClient client = new DefaultDingTalkClient(String.format(url, timestamp, key));
         OapiRobotSendRequest request = new OapiRobotSendRequest();
         request.setMsgtype("text");
         OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
-        text.setContent("测试文本消息");
+        text.setContent(message);
         request.setText(text);
         OapiRobotSendResponse response = client.execute(request);
         return response;
     }
 
-    private static String getKey(Long timestamp,String secret) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+    public static String getKey(Long timestamp,String secret) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         String stringToSign = timestamp + "\n" + secret;
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));

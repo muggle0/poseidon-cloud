@@ -98,13 +98,12 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.alibaba.sdk</groupId>
-            <artifactId>ding-sdk</artifactId>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/taobao-sdk-java-auto.jar</systemPath>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
+
+
     </dependencies>
     <build>
         <resources>

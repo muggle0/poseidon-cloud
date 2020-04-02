@@ -1,0 +1,1 @@
+CD .. && mvn install:install-file -Dfile=libs/taobao-sdk-java-auto.jar -DgroupId=com.alibaba -DartifactId=ding-sdk -Dversion=1 -Dpackaging=jar

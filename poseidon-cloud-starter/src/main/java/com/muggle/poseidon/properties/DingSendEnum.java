@@ -1,4 +1,4 @@
-package com.muggle.poseidon.constant;
+package com.muggle.poseidon.properties;
 
 /**
  * @Description:
