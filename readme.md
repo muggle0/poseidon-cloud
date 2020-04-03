@@ -33,6 +33,9 @@
 链接：https://pan.baidu.com/s/1ufn-pZxOYvq0wdmNuxquzQ 
 提取码：65wj 
 ```
+## 环境准备
+请确保你的电脑上安装了 maven 、mysql、mongoDB.
+ 
 ## sentinel-dashboard 安装
 框架集成了`sentinel`来做限流和熔断，`sentinel-dashboard`是sentinel控制台，你可以在这个控制台里面看到各个资源的访问情况，配置熔断规则等。
 框架的配置文件制定控制台的`ip:prot` :
@@ -116,7 +119,7 @@ filter {
 ## 运行项目
 
 环境搭建完毕，我们开始运行项目。
-先启动 `tx-manager` 模块，访问 `localhost:8001` 密码是 `codingapi` 输入密码进入管理界面，说明项目启动成功
+先启动 `tx-manager` 模块，访问 `localhost:7970` 密码是 `codingapi` 输入密码进入管理界面，说明项目启动成功
 
 再启动 `poseidon-cloud-admin` 访问 `localhost:8001` 可以看到一个监控界面，说明项目启动成功
 
