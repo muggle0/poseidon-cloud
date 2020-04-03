@@ -1,10 +1,6 @@
 package com.muggle.poseidon.listener;
 
-import com.muggle.poseidon.properties.DingParamProperties;
-import com.muggle.poseidon.properties.DingSendEnum;
-import com.muggle.poseidon.util.DingUtil;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
