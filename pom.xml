@@ -48,11 +48,7 @@
         <module>tx-manager</module>
     </modules>
     <dependencies>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>ding-sdk</artifactId>
-            <version>1</version>
-        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

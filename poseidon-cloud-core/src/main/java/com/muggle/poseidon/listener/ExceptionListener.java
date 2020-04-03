@@ -25,7 +25,8 @@ public class ExceptionListener implements ApplicationListener<ExceptionEvent> {
         while (i<3)
         try {
             String message = event.getMessage();
-            DingUtil.sendMessage(DingParamProperties.DING_URL, DingSendEnum.TEXT,DingParamProperties.SECRET,message);
+//            DingUtil.sendMessage(DingParamProperties.DING_URL, DingSendEnum.TEXT,DingParamProperties.SECRET,message);
+
             break;
         }catch (Exception e){
             i++;

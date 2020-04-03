@@ -100,7 +100,12 @@
             <version>9.5.1</version>
         </dependency>
 
-
+      <!--  <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>ding-sdk</artifactId>
+            <version>1</version>
+        </dependency>
+-->
     </dependencies>
 
     <dependencyManagement>

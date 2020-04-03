@@ -1,3 +1,4 @@
+/*
 package com.muggle.poseidon.util;
 
 import com.dingtalk.api.DefaultDingTalkClient;
@@ -17,11 +18,13 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+*/
 /**
  * @Description:
  * @Author: muggle
  * @Date: 2020/3/31$
- **/
+ **//*
+
 public class DingUtil {
     private DingUtil() {
         throw new SimplePoseidonException("禁止实例化");
@@ -52,3 +55,4 @@ public class DingUtil {
         return sign;
     }
 }
+*/

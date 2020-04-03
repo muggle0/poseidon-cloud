@@ -68,4 +68,16 @@ public class TestController {
         return success();
     }
 
+    public static void main(String[] args) {
+        String s = new String("#test#test");
+        String test = new String("test");
+        String[] split = s.split("#");
+        String[] split1 = test.split("#");
+        for (String s1 : split) {
+            if (s1.equals("")){
+                System.out.println(">>>>>>>>>>>>");
+            }
+        }
+    }
+
 }
