@@ -18,14 +18,15 @@ public class ExceptionListener implements ApplicationListener<ExceptionEvent> {
     public void onApplicationEvent(ExceptionEvent event) {
         // todo
         int i=0;
-        while (i<3)
-        try {
-            String message = event.getMessage();
+        while (i<3) {
+            try {
+                String message = event.getMessage();
 //            DingUtil.sendMessage(DingParamProperties.DING_URL, DingSendEnum.TEXT,DingParamProperties.SECRET,message);
 
-            break;
-        }catch (Exception e){
-            i++;
+                break;
+            } catch (Exception e) {
+                i++;
+            }
         }
     }
 }
