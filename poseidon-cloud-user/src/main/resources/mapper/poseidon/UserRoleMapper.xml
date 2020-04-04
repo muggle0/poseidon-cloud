@@ -2,4 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.muggle.poseidon.mapper.UserRoleMapper">
 
+    <resultMap id="baseResult" type="com.muggle.poseidon.entity.UserRoleDO">
+
+        <result column="gmt_modified" property="gmtModified" typeHandler="com.muggle.poseidon.handler.MybatisDataHandler"/>
+        <result column="role_code" property="roleCode"/>
+        <result column="enable" property="enable"/>
+        <result column="role_name" property="roleName"/>
+        <result column="sort" property="sort"/>
+        <result column="create_name" property="createName"/>
+        <result column="create_id" property="createId"/>
+        <result column="scope" property="scope"/>
+        <result column="gmt_create" property="gmtCreate" typeHandler="com.muggle.poseidon.handler.MybatisDataHandler"></result>
+    </resultMap>
+
+    <select id="findRoelByName" resultMap="baseResult">
+        SELECT ur.*
+        from user_info ui LEFT JOIN user_role_relation urr on urr.user_id=ui.id
+        LEFT JOIN user_role ur on ur.id
+        <where>
+            ui.username='admin'
+        </where>
+    </select>
 </mapper>

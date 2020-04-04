@@ -1,7 +1,7 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.muggle.poseidon.entity.UserAuthorityDO;
+import com.muggle.poseidon.entity.UserRoleDO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -19,7 +19,7 @@ public interface TokenService extends UserDetailsService {
     * @return:
     * @date 2019/11/5 18:05
     */
-    boolean rooleMatch(Set<String> rooleCodes, String path);
+    boolean rooleMatch(List<UserRoleDO> roleDOS , String path);
 
     /**
      * 项目初始化插入权限表
@@ -28,6 +28,6 @@ public interface TokenService extends UserDetailsService {
     void saveUrlInfo(List<AuthUrlPathDO> list);
 
 
-    List<UserAuthorityDO> getUserAuthority(String username);
+    List<UserRoleDO> getUserRole(String username);
 
 }

@@ -2,25 +2,17 @@ package com.muggle.poseidon.config;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
-import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.SimpleUserDO;
-import com.muggle.poseidon.entity.UserAuthorityDO;
+import com.muggle.poseidon.entity.UserRoleDO;
 import com.muggle.poseidon.store.SecurityStore;
 import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.util.JwtTokenUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -51,11 +43,11 @@ public class CommonTokenStore implements SecurityStore {
         String credential = properties.getCredential();
         if (token.equals(root)) {
             String random = JwtTokenUtils.getRandom(token, credential);
-            UserAuthorityDO userAuthorityDO = new UserAuthorityDO();
-            userAuthorityDO.setEnable(true);
-            userAuthorityDO.setUrl("/**");
-            userAuthorityDO.setApplication(application);
-            UserInfo userInfo = new UserInfo().setUsername("root").setAuthorities(Arrays.asList(userAuthorityDO)).setAccountNonExpired(true)
+            UserRoleDO userRoleDO = new UserRoleDO();
+            userRoleDO.setEnable(true);
+            userRoleDO.setRoleCode("root");
+            userRoleDO.setScope(application);
+            UserInfo userInfo = new UserInfo().setUsername("root").setAuthorities(Arrays.asList(userRoleDO)).setAccountNonExpired(true)
                     .setAccountNonLocked(true).setNickname("root").setEnabled(true);
             userInfo.setCode(random);
             return userInfo;

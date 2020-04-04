@@ -1,9 +1,10 @@
 package com.muggle.poseidon.mapper;
 
+import com.muggle.poseidon.entity.UserRoleDO;
 import com.muggle.poseidon.user.pojo.UserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.muggle.poseidon.user.pojo.UserRole;
 import com.muggle.poseidon.user.pojo.UserSign;
-import com.muggle.poseidon.entity.UserAuthorityDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,5 +25,5 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
     UserInfo getByUserSign(@Param("bean") UserSign sign);
 
-    List<UserAuthorityDO> findAuthByUsername(@Param("username") String username);
+
 }

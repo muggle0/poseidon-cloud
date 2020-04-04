@@ -51,14 +51,5 @@
 
         and user_sign.enable=#{bean.enable}
     </select>
-    <sql id="S"></sql>
-    <select id="findAuthByUsername" resultType="com.muggle.poseidon.entity.UserAuthorityDO">
 
-        SELECT ua.id,url,ua.description,ua.gmt_create AS gmtCreate,ua.enable ,ua.request_type AS
-        requestType,application,ua.class_name AS className,
-        ua.method_name AS methodName,ua.parent_id AS parentId
-        FROM user_info ui LEFT JOIN user_role_relation urr ON urr.`user_id`=ui.`id`
-        LEFT JOIN role_authority_relation rar ON rar.`role_id`=urr.`role_id` LEFT JOIN user_authority ua
-        ON ua.`id`=rar.`authority_id` WHERE ui.`username`=#{username} and ua.enable=1;
-    </select>
 </mapper>

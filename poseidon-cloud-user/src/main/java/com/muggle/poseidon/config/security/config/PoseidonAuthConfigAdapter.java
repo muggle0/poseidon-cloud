@@ -13,6 +13,7 @@ import com.muggle.poseidon.store.SecurityStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -120,6 +121,7 @@ public class PoseidonAuthConfigAdapter extends WebSecurityConfigurerAdapter {
 
     }
 
+    @Bean
     protected AuthenticationManager getAuthenticationManager()  {
         ProviderManager authenticationManager = new ProviderManager(Arrays.asList(poseidonAuthenticationProvider()));
         return authenticationManager;

@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * <p>
@@ -19,7 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value="UserRole对象", description="")
-public class UserRole extends BaseBean {
+public class UserRole extends BaseBean implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,4 +42,8 @@ public class UserRole extends BaseBean {
 
     private String scope;
 
+    @Override
+    public String getAuthority() {
+        return roleCode;
+    }
 }

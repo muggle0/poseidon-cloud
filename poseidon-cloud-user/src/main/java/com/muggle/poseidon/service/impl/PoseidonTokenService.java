@@ -1,11 +1,13 @@
 package com.muggle.poseidon.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.muggle.poseidon.entity.UserRoleDO;
+import com.muggle.poseidon.mapper.UserRoleMapper;
 import com.muggle.poseidon.user.pojo.UserAuthority;
 import com.muggle.poseidon.user.pojo.UserInfo;
+import com.muggle.poseidon.user.pojo.UserRole;
 import com.muggle.poseidon.user.pojo.UserSign;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.mapper.UserAuthorityMapper;
 import com.muggle.poseidon.mapper.UserInfoMapper;
 import com.muggle.poseidon.service.IUserAuthorityService;
@@ -43,6 +45,8 @@ public class PoseidonTokenService implements TokenService {
 
     @Autowired
     private UserAuthorityMapper authorityMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
 
     private AntPathMatcher matcher=new AntPathMatcher();
 
@@ -54,14 +58,9 @@ public class PoseidonTokenService implements TokenService {
     }
 
     @Override
-    public boolean rooleMatch(Set<String> rooleCodes, String path) {
-        Iterator<String> iterator = rooleCodes.iterator();
-        while (iterator.hasNext()){
-            String next = iterator.next();
-            boolean match = matcher.match(next, path);
-            return match;
-        }
-        return false;
+    public boolean rooleMatch(List<UserRoleDO> roleDOS , String path) {
+        // todo
+        return true;
     }
 
 
@@ -119,10 +118,10 @@ public class PoseidonTokenService implements TokenService {
     }
 
     @Override
-    public List<UserAuthorityDO> getUserAuthority(String username) {
+    public List<UserRoleDO> getUserRole(String username) {
 
-        List<UserAuthorityDO> auths=userInfoMapper.findAuthByUsername(username);
-        return auths;
+        List<UserRoleDO> roleDOS=userRoleMapper.findRoelByName(username);
+        return roleDOS;
     }
 
 

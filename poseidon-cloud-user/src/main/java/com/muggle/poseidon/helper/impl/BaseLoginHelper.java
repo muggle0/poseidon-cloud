@@ -1,7 +1,7 @@
 package com.muggle.poseidon.helper.impl;
 
+import com.muggle.poseidon.entity.UserRoleDO;
 import com.muggle.poseidon.user.pojo.UserInfo;
-import com.muggle.poseidon.entity.UserAuthorityDO;
 import com.muggle.poseidon.helper.LoginHelper;
 import com.muggle.poseidon.mapstruct.UserInfoMap;
 import com.muggle.poseidon.service.TokenService;
@@ -41,9 +41,9 @@ public class BaseLoginHelper implements LoginHelper {
         if (!matches){
             throw new BadCredentialsException("密码错误");
         }
-        List<UserAuthorityDO> authorities = tokenService.getUserAuthority(username);
-        userInfo.setAuthorities(authorities);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userInfo.getUsername(), userInfo.getPassword(),authorities);
+        List<UserRoleDO> roles = tokenService.getUserRole(username);
+        userInfo.setAuthorities(roles);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userInfo.getUsername(), userInfo.getPassword(),roles);
         authenticationToken.setDetails(userInfo);
         return authenticationToken;
     }

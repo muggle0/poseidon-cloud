@@ -22,7 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value="UserAuthority对象", description="")
-public class UserAuthority extends BaseBean implements GrantedAuthority, Serializable {
+public class UserAuthority extends BaseBean implements  Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,8 +47,4 @@ public class UserAuthority extends BaseBean implements GrantedAuthority, Seriali
     private Long parentId;
 
 
-    @Override
-    public String getAuthority() {
-        return requestType+":"+url;
-    }
 }

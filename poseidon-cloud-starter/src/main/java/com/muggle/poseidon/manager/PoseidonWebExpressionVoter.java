@@ -1,7 +1,7 @@
 package com.muggle.poseidon.manager;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
-import com.muggle.poseidon.entity.UserAuthorityDO;
+import com.muggle.poseidon.entity.UserRoleDO;
 import com.muggle.poseidon.properties.SecurityMessageProperties;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.store.SecurityStore;
@@ -71,15 +71,9 @@ public class PoseidonWebExpressionVoter extends WebExpressionVoter {
             return ACCESS_DENIED;
         }
         /** 获取用户角色，并通过角色去匹配权限*/
-        List<UserAuthorityDO> authorities = (List<UserAuthorityDO>) authentication.getAuthorities();
-        HashSet<String> roleCodes = new HashSet<>();
-        authorities.forEach(bean -> {
-            String attribute = bean.getAuthority();
-            if (application.equals(bean.getApplication())&&bean.isEnable()){
-                roleCodes.add(attribute);
-            }
-        });
-        boolean b = tokenService.rooleMatch(roleCodes, requestUrl);
+        List<UserRoleDO> roleDOS = (List<UserRoleDO>) authentication.getAuthorities();
+
+        boolean b = tokenService.rooleMatch(roleDOS, requestUrl);
         if (b) {
             log.debug("》》》》 用户权限认证通过，用户名：【"+authentication.getPrincipal()+"】");
             return ACCESS_GRANTED;

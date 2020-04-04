@@ -2,8 +2,10 @@ package com.muggle.poseidon.user.pojo;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 import com.muggle.poseidon.base.BaseBean;
+import com.muggle.poseidon.entity.UserRoleDO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -80,7 +82,7 @@ public class UserInfo extends BaseBean implements UserDetails {
 
     private Long id;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private List<UserRoleDO> authorities;
 
 
 }

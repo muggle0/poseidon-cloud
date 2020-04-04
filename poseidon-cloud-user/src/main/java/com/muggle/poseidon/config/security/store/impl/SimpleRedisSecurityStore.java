@@ -2,19 +2,16 @@ package com.muggle.poseidon.config.security.store.impl;
 
 import com.muggle.poseidon.auto.PoseidonSecurityProperties;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
-import com.muggle.poseidon.config.security.properties.VerlifaTypeEnum;
 import com.muggle.poseidon.entity.SimpleUserDO;
-import com.muggle.poseidon.entity.UserAuthorityDO;
+import com.muggle.poseidon.entity.UserRoleDO;
 import com.muggle.poseidon.mapstruct.UserInfoMap;
 import com.muggle.poseidon.store.SecurityStore;
-import com.muggle.poseidon.user.pojo.UserAuthority;
 import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.util.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -51,11 +48,11 @@ public class SimpleRedisSecurityStore implements SecurityStore {
         String credential = properties.getCredential();
         if (token.equals(root)){
             String random = JwtTokenUtils.getRandom(token, credential);
-            UserAuthorityDO userAuthorityDO = new UserAuthorityDO();
-            userAuthorityDO.setEnable(true);
-            userAuthorityDO.setUrl("/**");
-            userAuthorityDO.setApplication(application);
-            UserInfo userInfo = new UserInfo().setUsername("root").setAuthorities(Arrays.asList(userAuthorityDO)).setAccountNonExpired(true)
+            UserRoleDO userRoleDO = new UserRoleDO();
+            userRoleDO.setEnable(true);
+            userRoleDO.setRoleCode("root");
+            userRoleDO.setScope(application);
+            UserInfo userInfo = new UserInfo().setUsername("root").setAuthorities(Arrays.asList(userRoleDO)).setAccountNonExpired(true)
                     .setAccountNonLocked(true).setNickname("root").setEnabled(true);
             userInfo.setCode(random);
             return userInfo;
@@ -89,7 +86,7 @@ public class SimpleRedisSecurityStore implements SecurityStore {
         // 将新的版本号加入到版本号list中，用于校验token
         randoms.add(random);
         simpleUserDO.setRandoms(randoms);
-        simpleUserDO.setAuthorities(((List<UserAuthorityDO>) userDetails.getAuthorities()));
+        simpleUserDO.setAuthorities(((List<UserRoleDO>) userDetails.getAuthorities()));
         // 更新登录信息
         redisTemplate.opsForValue().set(key, simpleUserDO, expirationTime, TimeUnit.HOURS);
         return token;

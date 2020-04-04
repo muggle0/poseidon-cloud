@@ -1,7 +1,7 @@
 package com.muggle.poseidon.config;
 
 import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.muggle.poseidon.entity.UserAuthorityDO;
+import com.muggle.poseidon.entity.UserRoleDO;
 import com.muggle.poseidon.service.TokenService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,15 +26,8 @@ public class CommonTokenService implements TokenService {
     }
 
     @Override
-    public boolean rooleMatch(Set<String> rooleCodes, String path) {
-
-        Iterator<String> iterator = rooleCodes.iterator();
-        while (iterator.hasNext()){
-            String next = iterator.next();
-            boolean match = matcher.match(next, path);
-            return match;
-        }
-        return false;
+    public boolean rooleMatch(List<UserRoleDO> roleDOS , String path) {
+        return true;
     }
 
     @Override
@@ -43,7 +36,7 @@ public class CommonTokenService implements TokenService {
     }
 
     @Override
-    public List<UserAuthorityDO> getUserAuthority(String username) {
+    public List<UserRoleDO> getUserRole(String username) {
         return null;
     }
 

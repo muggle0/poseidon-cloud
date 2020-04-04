@@ -1,12 +1,10 @@
 package com.muggle.poseidon.entity;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -70,13 +68,13 @@ public class SimpleUserDO implements Serializable, UserDetails {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    private List<UserAuthorityDO> authorities;
+    private List<UserRoleDO> authorities;
 
-    public List<UserAuthorityDO> getAuthorities() {
+    public List<UserRoleDO> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<UserAuthorityDO> authorities) {
+    public void setAuthorities(List<UserRoleDO> authorities) {
         this.authorities = authorities;
     }
 

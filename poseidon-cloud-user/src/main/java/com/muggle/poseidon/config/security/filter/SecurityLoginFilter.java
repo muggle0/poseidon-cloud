@@ -83,7 +83,7 @@ public class SecurityLoginFilter extends UsernamePasswordAuthenticationFilter {
             UserDetails details = (UserDetails) authenticate.getDetails();
             String key = SecurityMessageProperties.USER_NAME  + username;
             // 生成token 返回给前端
-            /** todo 先不做 记住我的功能 4. 设置token过期时间**/
+            /** todo 先不做 记住我的功能 **/
             String token = securityStore.saveUser(details, properties.getExperTime(), key);
             UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(token, "");
             return result;
