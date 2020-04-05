@@ -106,6 +106,7 @@ public class WebResultHandler {
     }
     /**
      * 未知异常，需要通知到管理员,对于线上未知的异常，我们应该严肃处理：先将消息传给MQ中心(该平台未实现) 然后日志写库
+     * 这里的处理方式是抛出事件
       * @param e
      * @param req
      * @return
