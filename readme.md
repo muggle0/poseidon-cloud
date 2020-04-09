@@ -120,6 +120,11 @@ filter {
 
 在 `./libs` 下存放的是项目的SDK jar 包 需要执行 ./bat 下的`mvn-build.cmd` 脚本将sdk安装到本地否则会报错
 
+你也可以在 './lib' 目录下 运行：
+```
+mvn install:install-file -Dfile=taobao-sdk-java-auto.jar -DgroupId=com.alibaba -DartifactId=ding-sdk -Dversion=1 -Dpackaging=jar
+```
+
 ## 运行项目
 
 环境搭建完毕，我们开始运行项目。
@@ -156,6 +161,8 @@ mvn install org.springframework.boot:spring-boot-maven-plugin:2.2.5.RELEASE:buil
         <version>0.0.1.Alpha</version>
     </parent>
 ```
+
+框架提供了一个简单的 `mybatis plus` 逆向工程工具—— `poseidong-generator` ； 由于各个使用者对逆向工程的需求都不同，所以我这里并未做太深度的开发。有深度开发需求的小伙伴请参考 `mybatis-plus` 的官方文档。
 
 ## 部署到docker
 
