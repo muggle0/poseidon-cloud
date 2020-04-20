@@ -1,0 +1,9 @@
+### 注释
+GET http://localhost:8200/poseidon/user-info/test
+# Cookie:
+Content-Type:application/json
+
+###
+GET https://ad.oceanengine.com/openapi/audit/oauth.html?app_id=XXX&state=xxx&scope=xxx&redirect_uri=xxx
+
+###

@@ -16,4 +16,9 @@ public interface IUserInfoService extends IService<UserInfo> {
     void registration(String userDO);
 
     void insert();
+
+    void test();
+
+    void test0();
+
 }

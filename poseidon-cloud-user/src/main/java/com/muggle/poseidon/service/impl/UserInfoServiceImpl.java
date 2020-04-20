@@ -2,6 +2,7 @@ package com.muggle.poseidon.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+import com.muggle.poseidon.manager.TestTranscationalManager;
 import com.muggle.poseidon.user.pojo.UserInfo;
 import com.muggle.poseidon.user.pojo.UserSign;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
@@ -41,8 +42,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Autowired
     DocumentSeataFeign seataFeign;
+
+    @Autowired
+    TestTranscationalManager manager;
+
     /**
      * 用户注册
+     *
      * @param userDO
      */
     @Override
@@ -71,5 +77,26 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         seataFeign.findAll();
     }
 
+    @Override
+    @Transactional
+    public void test() {
+        UserSign userSign = new UserSign();
+        userSign.setAuthType("test").setCredentials("spring-transactional-test");
+        try {
+            manager.test();
+        } catch (Exception e) {
+
+        }
+        signMapper.insert(userSign);
+        throw new SimplePoseidonException("");
+    }
+
+
+    public void test0() {
+        UserSign userSign = new UserSign();
+        userSign.setAuthType("test").setCredentials("spring-transactional-test");
+        signMapper.insert(userSign);
+        manager.test0();
+    }
 }
 
