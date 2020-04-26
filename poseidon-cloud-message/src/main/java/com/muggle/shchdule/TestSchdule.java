@@ -19,7 +19,7 @@ public class TestSchdule {
     RestTemplate restTemplate;
     private static String url="https://oapi.dingtalk.com/robot/send?access_token=83da62f0215f9e847b34a3d69e228e4ce7d0633a410a348419a772dc879fca71&timestamp=%s&sign=%s";
 
-    @Scheduled(fixedRate = 50000)
+//    @Scheduled(fixedRate = 50000)
     public void teestDing(){
     }
 

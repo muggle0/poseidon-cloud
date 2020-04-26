@@ -39,10 +39,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.muggle</groupId>
-            <artifactId>poseidon-cloud-common</artifactId>
-        </dependency>
         <!--seata-->
        <!-- <dependency>
             <groupId>com.alibaba.cloud</groupId>
