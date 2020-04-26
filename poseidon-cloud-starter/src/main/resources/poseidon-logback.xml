@@ -5,9 +5,7 @@
 
     <jmxConfigurator/>
 
-    <!--<property name="log_dir" value="log.dir"/>-->
     <property name="maxHistory" value="100"/>
-    <!--<springProperty scope="context" name="destination" source="logstash.destination"/>-->
     <springProperty scope="context" name="log_name" source="spring.application.name"/>
     <springProperty scope="context" name="log_dir" source="log.dir"/>
     <springProperty scope="context" name="destination" source="logstash.host"/>
