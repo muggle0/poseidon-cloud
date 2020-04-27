@@ -22,8 +22,8 @@ import java.util.Arrays;
  * @Author: muggle
  * @Date: 2020/3/31$
  **/
-public class DingUtil {
-    private DingUtil() {
+public class DingUtils {
+    private DingUtils() {
         throw new SimplePoseidonException("禁止实例化");
     }
 
