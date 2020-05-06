@@ -8,4 +8,6 @@ import java.io.Serializable;
 public class Message implements Serializable {
     private String title;
     private String content;
+    private String messageCode;
+    private String messageId;
 }
