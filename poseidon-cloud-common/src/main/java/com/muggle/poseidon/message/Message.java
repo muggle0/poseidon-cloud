@@ -5,9 +5,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class Message implements Serializable {
+public class Message<T> implements Serializable {
     private String title;
-    private String content;
+    private T content;
     private String messageCode;
     private String messageId;
 }
