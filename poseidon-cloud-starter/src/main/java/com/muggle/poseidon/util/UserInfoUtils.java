@@ -23,7 +23,7 @@ public class UserInfoUtils {
 
     public static UserDetails getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication==null||authentication.getDetails()==null){
+        if (authentication==null||authentication.getDetails()==null||authentication.getPrincipal().equals("anonymousUser")){
             return new SimpleUserDO();
         }
         if (!(authentication.getDetails() instanceof UserDetails )){
