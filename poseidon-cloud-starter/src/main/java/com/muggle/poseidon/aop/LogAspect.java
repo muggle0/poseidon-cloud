@@ -2,7 +2,9 @@ package com.muggle.poseidon.aop;
 
 import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.PoseidonLocker;
+import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
+import com.muggle.poseidon.util.UserInfoUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
@@ -51,15 +53,9 @@ public class LogAspect {
         for (Object arg : args) {
             stringBuilder.append(" (").append(arg.toString()).append(") ");
         }
-
         String userMessage = "用户名：%s";
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication.getDetails() == null) {
-            userMessage = String.format(userMessage, "用户未登陆");
-        } else {
-            userMessage = String.format(userMessage, ((UserDetails) authentication.getDetails()).getUsername());
-        }
-
+        UserDetails userInfo = UserInfoUtils.getUserInfo();
+        userMessage=String.format(userMessage,userInfo==null?"用户未登录":userInfo.getUsername());
         log.info("》》》》》》 请求日志   "+userMessage+"url=" + request.getRequestURI() + "method=" + request.getMethod() + "ip=" + request.getRemoteAddr()
                 + "host=" + request.getRemoteHost() + "port=" + request.getRemotePort()
                 + "classMethod=" + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName()
