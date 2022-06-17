@@ -29,7 +29,7 @@
         <mysql.version>8.0.13</mysql.version>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <pagehelp.version>5.1.7</pagehelp.version>
-        <fastjson.version>1.2.56</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <mapstruct.versoin>1.3.1.Final</mapstruct.versoin>
         <tx.version>5.0.2.RELEASE</tx.version>
     </properties>
